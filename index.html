@@ -547,88 +547,33 @@ document.getElementById('taskButton').addEventListener('click', () => {
             taskContainer.style.display = taskContainer.style.display === 'none' ? 'block' : 'none';
 });
 
-// Обработчик для первой группы кнопок
-const taskButtons1 = document.querySelectorAll('.taskButton1');
-taskButtons1.forEach(button => {
-    const buttonId = button.getAttribute('data-id'); 
-    const isButtonDisabled1 = localStorage.getItem(`button_${buttonId}`) === 'true';
+// Обработчик для групп кнопок
+const taskButtonsGroups = [document.querySelectorAll('.taskButton1'), document.querySelectorAll('.taskButton2'), document.querySelectorAll('.taskButton3')];
 
-    if (isButtonDisabled1) {
-        button.disabled = true;
-        button.textContent = 'Награда взята'; 
+taskButtonsGroups.forEach(taskButtons => {
+  taskButtons.forEach(button => {
+    const buttonId = button.getAttribute('data-id');
+    // Проверяем состояние кнопки только один раз при загрузке страницы
+    const isButtonDisabled = localStorage.getItem(`button_${buttonId}`) === 'true';
+    if (isButtonDisabled) {
+      button.disabled = true;
+      button.textContent = 'Награда взята';
     }
-
+    
     button.addEventListener('click', function() {
-        const url = this.getAttribute('data-url');
-        this.textContent = 'В процессе получения кокосов';
-        window.open(url, '_blank');
-        this.disabled = true;
-
-        localStorage.setItem(`button_${buttonId}`, 'true');
-
-        setTimeout(() => {
-            this.textContent = 'Награда взята';
-            coinCount += 1000.0;
-            coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
-            saveCoins();
-        }, 5000);
+      const url = this.getAttribute('data-url');
+      this.textContent = 'В процессе получения кокосов';
+      window.open(url, '_blank');
+      this.disabled = true;
+      localStorage.setItem(`button_${buttonId}`, 'true');
+      setTimeout(() => {
+        this.textContent = 'Награда взята';
+        coinCount += 1000.0;
+        coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
+        saveCoins();
+      }, 5000);
     });
-});
-
-// Обработчик для второй группы кнопок
-const taskButtons2 = document.querySelectorAll('.taskButton2');
-taskButtons2.forEach(button => {
-    const buttonId = button.getAttribute('data-id'); 
-    const isButtonDisabled2 = localStorage.getItem(`button_${buttonId}`) === 'true';
-
-    if (isButtonDisabled2) {
-        button.disabled = true;
-        button.textContent = 'Награда взята'; 
-    }
-
-    button.addEventListener('click', function() {
-        const url = this.getAttribute('data-url');
-        this.textContent = 'В процессе получения кокосов';
-        window.open(url, '_blank');
-        this.disabled = true;
-
-        localStorage.setItem(`button_${buttonId}`, 'true');
-
-        setTimeout(() => {
-            this.textContent = 'Награда взята';
-            coinCount += 1000.0;
-            coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
-            saveCoins();
-        }, 5000);
-    });
-});
-
-// Обработчик для третьей группы кнопок
-const taskButtons3 = document.querySelectorAll('.taskButton3');
-taskButtons3.forEach(button => {
-    const buttonId = button.getAttribute('data-id'); 
-    const isButtonDisabled3 = localStorage.getItem(`button_${buttonId}`) === 'true';
-
-    if (isButtonDisabled3) {
-        button.disabled = true;
-        button.textContent = 'Награда взята'; 
-    }
-
-    button.addEventListener('click', function() {
-        const url = this.getAttribute('data-url');
-        this.textContent = 'В процессе получения кокосов';
-        window.open(url, '_blank');
-        this.disabled = true;
-
-        localStorage.setItem(`button_${buttonId}`, 'true');
-
-        setTimeout(() => {
-            this.textContent = 'Награда взята';
-            coinCount += 1000.0;
-            coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
-            saveCoins();
-        }, 5000);
-    });
+  });
 });
 function showCoins(e, amount) {
             const coinElement = document.createElement('div');
