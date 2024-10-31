@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Монетки</title>
   <style>
+
     .container228 {
       display: flex;
       height: var(--container-height);
@@ -15,7 +16,7 @@
       border: 5px solid transparent;
       background: rgb(255, 255, 255);
       background-clip: padding-box, border-box;
-      border-image: linear-gradient(to right, #3107eb, #7a0470) 1;
+      border-image: linear-gradient(to right, #ffa55c, #ff7300) 1;
       margin-top: 100px;
     }
     
@@ -77,7 +78,7 @@
       height: 100vh;
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, rgb(11, 206, 255), rgb(243, 11, 212));
+      background: linear-gradient(to bottom,#833c03, #070006);
       transition: background 0.5s ease;
       user-select: none;
       overflow: hidden;
@@ -105,7 +106,7 @@
       background-color: #4CAF50;
       color: white;
     }
-    
+
     #coin {
       font-size: 24px;
       margin-bottom: 93px;
@@ -193,51 +194,6 @@
       animation: rainbow 5s linear infinite;
     }
     
-    @keyframes rainbow {
-      0% {
-        color: red;
-      }
-      16.67% {
-        color: orange;
-      }
-      33.33% {
-        color: yellow;
-      }
-      50% {
-        color: green;
-      }
-      66.67% {
-        color: blue;
-      }
-      83.33% {
-        color: indigo;
-      }
-      100% {
-        color: violet;
-      }
-      0% {
-        color: red;
-      }
-      16.67% {
-        color: orange;
-      }
-      33.33% {
-        color: yellow;
-      }
-      50% {
-        color: green;
-      }
-      66.67% {
-        color: blue;
-      }
-      83.33% {
-        color: indigo;
-      }
-      100% {
-        color: violet;
-      }
-    }
-    
     #codeInput {
       margin-bottom: 10px;
       padding: 10px;
@@ -316,6 +272,30 @@
       cursor: pointer;
       margin: 10px;
     }
+
+    .skin5 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .skin6 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .skin7 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .skin8 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
     
     .message-box1 {
       margin: 10px;
@@ -374,6 +354,11 @@
       z-index: 1000;
       /* Убедитесь, что контейнер находится выше других элементов */
     }
+
+
+    #level {
+  color: white;
+}
   </style>
 </head>
 
@@ -398,7 +383,7 @@
     </div>
     <div class="button228" onclick="toggleMiniButtons(this)">
       <img src="image1.jpg" alt="Подарки дня" id="dailyGift" onclick="getDailyGift()" draggable="false">
-      <div class="button228-text">Подарки</div>
+      <div class="button228-text">Подарки дня!</div>
     </div>
     <div class="button228" onclick="toggleMiniButtons(this)">
       <img src="image2.jpg" alt="ПРОкачка" draggable="false">
@@ -438,6 +423,9 @@
     <img src="skin2.png" class="skin2" data-price="10000" alt="Skin 2" draggable="false">
     <img src="skin3.png" class="skin3" data-price="1000000" alt="Skin 3" draggable="false">
     <img src="skin4.png" class="skin4" data-price="1000" alt="Skin 4" draggable="false">
+    <img src="skin5.png" class="skin5" data-price="0" alt="Skin 5" draggable="false">
+    <img src="skin6.png" class="skin6" data-price="1000" alt="Skin 6" draggable="false">
+    <img src="skin7.png" class="skin7" data-price="10000" alt="Skin 7" draggable="false">
     <div class="message-box1" id="messageBox1"></div>
     <button id="closeShopButton1">Закрыть магазин</button>
   </div>
@@ -505,6 +493,10 @@
           img.className = 'skin2';
           img.className = 'skin3';
           img.className = 'skin4';
+          img.className = 'skin5';
+          img.className = 'skin6';
+          img.className = 'skin7';
+          img.className = 'skin8';
           img.style.width = '50px';
           img.addEventListener('click', () => {
             document.getElementById('coinImage').src = skinSrc;
@@ -597,6 +589,7 @@
     updateLevel();
     loadCoins();
     coinImage.addEventListener('click', () => {
+      updateLevel();
       coinCount += clickValue;
       updateLevel();
       coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
@@ -766,7 +759,7 @@ function updateInventoryDisplay1() {
     skins.forEach(skinSrc => {
         const img = document.createElement('img');
         img.src = skinSrc;
-        img.className = 'skin1 skin2 skin3 skin4'; // Объединяем классы
+        img.className = 'skin1 skin2 skin3 skin4 skin5 skin6 skin7'; // Объединяем классы
         img.style.width = '50px';
         img.addEventListener('click', () => {
             document.getElementById('coinImage').src = skinSrc;
@@ -788,7 +781,6 @@ document.getElementById('closeInventoryButton1').addEventListener('click', () =>
     inventory1.style.display = 'none';
 });
 
-// Обработчик для покупки скинов
 function handleSkinPurchase(skinSrc, cost) {
     if (coinCount >= cost) {
         messageBox1.style.display = 'block';
@@ -799,9 +791,9 @@ function handleSkinPurchase(skinSrc, cost) {
             coinCount -= cost;
             skins.push(skinSrc);
             coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
-            saveInventory(); // Сохраняем инвентарь
+            saveInventory();
             messageBox1.style.display = 'none';
-            updateInventoryDisplay1(); // Обновляем отображение инвентаря
+            updateInventoryDisplay1();
         });
         const noButton = document.createElement('button');
         noButton.textContent = "Нет";
@@ -815,23 +807,18 @@ function handleSkinPurchase(skinSrc, cost) {
     }
 }
 
-// Привязываем обработчики к скинам
-document.querySelectorAll('.skin1').forEach(skin1 => {
-    skin1.addEventListener('click', () => handleSkinPurchase(skin1.src, 10000));
+// Используем один селектор для всех скинов и получаем цену из атрибута data-price
+document.querySelectorAll('img[class^="skin"]').forEach(skin => {
+    skin.addEventListener('click', () => {
+        const price = parseFloat(skin.dataset.price); // Используем dataset для получения цены
+        handleSkinPurchase(skin.src, price);
+    });
 });
 
-document.querySelectorAll('.skin2').forEach(skin2 => {
-    skin2.addEventListener('click', () => handleSkinPurchase(skin2.src, 10000));
-});
-document.querySelectorAll('.skin3').forEach(skin3 => {
-    skin3.addEventListener('click', () => handleSkinPurchase(skin3.src, 1000000));
-});
-document.querySelectorAll('.skin4').forEach(skin4 => {
-    skin4.addEventListener('click', () => handleSkinPurchase(skin4.src, 1000));
-});
 // Вызов функции для обновления инвентаря при загрузке страницы
 updateInventoryDisplay1();
 
-</script>
+  </script>
 </body>
+
 </html>
