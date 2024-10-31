@@ -226,7 +226,7 @@
       transform: translate(-50%, -50%);
       background-color: white;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      padding: 40px;
+      padding: 4px;
       border-radius: 10px;
       z-index: 1;
       display: none;
@@ -476,11 +476,11 @@
       coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
       const storedItems = localStorage.getItem('items');
       return storedItems ? JSON.parse(storedItems) : [];
-      rare = parseFloat(localStorage.getItem('rare')) || 0.01;
-      epic = parseFloat(localStorage.getItem('epic')) || 0.001;
-      mythic = parseFloat(localStorage.getItem('mythic')) || 0.0001;
-      legendary = parseFloat(localStorage.getItem('legendary')) || 0.00001;
-      secret = parseFloat(localStorage.getItem('secret')) || 0.000001;
+      rare = parseFloat(localStorage.getItem('rare')) || 0.02;
+      epic = parseFloat(localStorage.getItem('epic')) || 0.002;
+      mythic = parseFloat(localStorage.getItem('mythic')) || 0.0002;
+      legendary = parseFloat(localStorage.getItem('legendary')) || 0.00002;
+      secret = parseFloat(localStorage.getItem('secret')) || 0.000002;
       levelDisplay = localStorage.getItem('level');
       levelProgress = localStorage.getItem('level-progress');
 
@@ -590,7 +590,7 @@
     loadCoins();
     coinImage.addEventListener('click', () => {
       updateLevel();
-      coinCount += clickValue;
+      coinCount += clickValue * 2;
       updateLevel();
       coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
       saveCoins();
