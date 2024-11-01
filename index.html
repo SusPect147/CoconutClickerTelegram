@@ -337,10 +337,10 @@
       }
     }
     
-    #taskContainer {
+#taskContainer {
       display: none;
       border-radius: 10px;
-      background: linear-gradient(to right, #ffffff, #e1c4fd);
+      background: linear-gradient(to right, #ff905c, #4d4d4d);
       padding: 20px;
       width: 300px;
       position: fixed;
@@ -773,30 +773,36 @@ document.getElementById('closeInventoryButton1').addEventListener('click', () =>
 });
 
 function handleSkinPurchase(skinSrc, cost) {
-    if (coinCount >= cost) {
-        messageBox1.style.display = 'block';
-        messageBox1.textContent = `Хотите купить скин за ${cost}🥥?`;
-        const yesButton = document.createElement('button');
-        yesButton.textContent = "Да";
-        yesButton.addEventListener('click', () => {
-            coinCount -= cost;
-            skins.push(skinSrc);
-            coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
-            saveInventory();
-            messageBox1.style.display = 'none';
-            updateInventoryDisplay1();
-        });
-        const noButton = document.createElement('button');
-        noButton.textContent = "Нет";
-        noButton.addEventListener('click', () => {
-            messageBox1.style.display = 'none';
-        });
-        messageBox1.appendChild(yesButton);
-        messageBox1.appendChild(noButton);
-    } else {
-        alert("Недостаточно 🥥 для покупки.");
-    }
-}
+            if (skins.includes(skinSrc)) {
+                messageBox1.style.display = 'block';
+                messageBox1.textContent = "У Вас уже есть этот скин в инвентаре.";
+                return; // Прекращаем выполнение, если скин уже приобретён
+            }
+
+            if (coinCount >= cost) {
+                messageBox1.style.display = 'block';
+                messageBox1.textContent = `Хотите купить скин за ${cost}🥥?`;
+                const yesButton = document.createElement('button');
+                yesButton.textContent = "Да";
+                yesButton.addEventListener('click', () => {
+                    coinCount -= cost;
+                    skins.push(skinSrc);
+                    coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
+                    saveInventory();
+                    messageBox1.style.display = 'none';
+                    updateInventoryDisplay1();
+                });
+                const noButton = document.createElement('button');
+                noButton.textContent = "Нет";
+                noButton.addEventListener('click', () => {
+                    messageBox1.style.display = 'none';
+                });
+                messageBox1.appendChild(yesButton);
+                messageBox1.appendChild(noButton);
+            } else {
+                alert("Недостаточно 🥥 для покупки.");
+            }
+        }
 
 // Используем один селектор для всех скинов и получаем цену из атрибута data-price
 document.querySelectorAll('img[class^="skin"]').forEach(skin => {
@@ -808,6 +814,7 @@ document.querySelectorAll('img[class^="skin"]').forEach(skin => {
 
 // Вызов функции для обновления инвентаря при загрузке страницы
 updateInventoryDisplay1();
+
 
   </script>
 </body>
