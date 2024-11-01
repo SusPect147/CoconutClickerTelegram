@@ -506,51 +506,42 @@
       }
     }
 
-    function updateLevel() {
-      let level = 'Начинающий кокосомен';
-      let progress = 0;
-      if (coinCount >= 200) {
-        if (coinCount < 10000) {
-          level = 'Собиратель кокосов';
-          progress = Math.min((coinCount - 200) / (10000 - 200) * 100, 100);
-        } else if (coinCount < 100000) {
-          level = 'Кокосовый искатель';
-          progress = Math.min((coinCount - 10000) / (100000 - 10000) * 100, 100);
-        } else if (coinCount < 500000) {
-          level = 'Деревенский кокосомен';
-          progress = Math.min((coinCount - 100000) / (500000 - 100000) * 100, 100);
-        } else if (coinCount < 2000000) {
-          level = 'Кокосовый самородок';
-          progress = Math.min((coinCount - 500000) / (2000000 - 500000) * 100, 100);
-        } else if (coinCount < 10000000) {
-          level = 'Кокосовое счастье';
-          progress = Math.min((coinCount - 2000000) / (10000000 - 2000000) * 100, 100);
-        } else if (coinCount < 20000000) {
-          level = 'Кокосовый капиталист';
-          progress = Math.min((coinCount - 10000000) / (20000000 - 10000000) * 100, 100);
-        } else if (coinCount < 50000000) {
-          level = 'Торговец кокосами';
-          progress = Math.min((coinCount - 20000000) / (50000000 - 20000000) * 100, 100);
-        } else if (coinCount < 150000000) {
-          level = 'Магнат кокосов';
-          progress = Math.min((coinCount - 50000000) / (150000000 - 50000000) * 100, 100);
-        } else if (coinCount < 1000000000) {
-          level = 'Волшебник кокосов';
-          progress = Math.min((coinCount - 150000000) / (1000000000 - 150000000) * 100, 100);
-        } else if (coinCount < 5000000000) {
-          level = 'Кокосовый император';
-          progress = Math.min((coinCount - 1000000000) / (5000000000 - 1000000000) * 100, 100);
-        } else if (coinCount < 10000000000) {
-          level = 'Кокосовый шейх';
-          progress = Math.min((coinCount - 5000000000) / (10000000000 - 5000000000) * 100, 100);
-        } else {
-          level = 'Мастер кокосов';
-          progress = 100;
-        }
-      }
-      levelDisplay.textContent = `Уровень: ${level}`;
-      levelProgress.style.width = progress + '%';
-    }
+const levelData = [
+  { threshold: 200, level: 'Начинающий кокосомен' },
+  { threshold: 10000, level: 'Собиратель кокосов' },
+  { threshold: 100000, level: 'Кокосовый искатель' },
+  { threshold: 500000, level: 'Деревенский кокосомен' },
+  { threshold: 2000000, level: 'Кокосовый самородок' },
+  { threshold: 10000000, level: 'Кокосовое счастье' },
+  { threshold: 20000000, level: 'Кокосовый капиталист' },
+  { threshold: 50000000, level: 'Торговец кокосами' },
+  { threshold: 150000000, level: 'Магнат кокосов' },
+  { threshold: 1000000000, level: 'Волшебник кокосов' },
+  { threshold: 5000000000, level: 'Кокосовый император' },
+  { threshold: 10000000000, level: 'Кокосовый шейх' },
+  { threshold: Infinity, level: 'Мастер кокосов' } // Последний уровень
+];
+
+function updateLevel() {
+  let coinCount = parseInt(localStorage.getItem('coinCount')) || 0; // Загрузка из localStorage
+
+  let currentLevelData = levelData.find(level => coinCount < level.threshold);
+
+  let level = currentLevelData.level;
+  let progress = 0;
+
+  if (coinCount >= 200) { // Только если выше начального уровня
+    const prevLevelData = levelData.find(level => level.threshold <= coinCount && level.threshold !== currentLevelData.threshold) || levelData[0];
+    progress = Math.min((coinCount - prevLevelData.threshold) / (currentLevelData.threshold - prevLevelData.threshold) * 100, 100);
+  }
+
+
+  levelDisplay.textContent = `Уровень: ${level}`;
+  levelProgress.style.width = progress + '%';
+
+  localStorage.setItem('coinCount', coinCount); // Сохранение в localStorage
+}
+
     let coinCount = 0;
     let clickValue = 1;
     let upgradePrice = 100;
