@@ -14,10 +14,11 @@
       align-items: center;
       padding: 6px;
       border: 5px solid transparent;
-      background: rgb(255, 255, 255);
+      background: linear-gradient(to right, #ffffff, #b4b4b4);
       background-clip: padding-box, border-box;
-      border-image: linear-gradient(to right, #ffa55c, #ff7300) 1;
       margin-top: 100px;
+      border-radius: 14px;
+
     }
     
     .button228 {
@@ -31,6 +32,7 @@
       align-items: center;
       text-align: center;
       transition: brightness 0.2s;
+ 
     }
     
     .button228 img {
@@ -39,6 +41,7 @@
       border-radius: 5px;
       transition: transform 0.2s;
       border-radius: 10px;
+
     }
     
     .button228:hover img {
@@ -48,8 +51,9 @@
     .button228-text {
       margin-top: 2.5px;
       font-size: 15px;
-      color: rgb(35, 139, 230);
-      font-family: 'Borsok', sans-serif;
+      color: rgb(0, 0, 0);
+
+
     }
     
     .mini-buttons {
@@ -59,7 +63,7 @@
     }
     
     .mini-button {
-      background-color: #9370DB;
+      background-color: #59a9c2;
       border: none;
       border-radius: 5px;
       padding: 2px 5px;
@@ -71,19 +75,31 @@
     }
     
     body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom,#833c03, #070006);
-      transition: background 0.5s ease;
-      user-select: none;
-      overflow: hidden;
-    }
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, rgb(228, 207, 162), rgb(0, 0, 0));
+            transition: background 0.5s ease;
+            user-select: none;
+            overflow: hidden;
+            color: rgb(0, 0, 0);
+            font-weight: 550;
+        }
     
+
+    @font-face {
+    font-family: 'Rostov';
+    src: url('FredokaOne-Regular.ttf') format('truetype');
+}
+
+
+
+
+
     #message-container {
       position: fixed;
       top: 100px;
@@ -120,18 +136,17 @@
     }
     
     img {
-      width: 250px;
-      top: 40%;
-      cursor: pointer;
-      outline: none;
-      pointer-events: auto;
-      -webkit-tap-highlight-color: transparent;
-      transition: transform 0.1s;
-    }
+            width: 250px;
+            top: 40%;
+            cursor: pointer;
+            outline: none;
+            pointer-events: auto;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.1s;
+        }
     
     #coinImage:active {
       transform: scale(0.9);
-      /* Сжимает изображение при клике */
     }
     
     img active {
@@ -337,10 +352,10 @@
       }
     }
     
-#taskContainer {
+    #taskContainer {
       display: none;
       border-radius: 10px;
-      background: linear-gradient(to right, #ff905c, #4d4d4d);
+      background: linear-gradient(to right, #5a5a58, #eed387);
       padding: 20px;
       width: 300px;
       position: fixed;
@@ -357,36 +372,82 @@
 
 
     #level {
-  color: white;
+  color: rgb(255, 255, 255);
+  height: -50px;
 }
+
+
+
+.item-menu1 {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 10; /* Убедитесь, что меню отображается поверх других элементов */
+}
+
+
+
+#tooltip {
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  padding: 10px;
+  display: none;
+  z-index: 10000000;
+}
+#closeTooltipButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+
+.tooltip {
+  position: absolute;
+  padding: 15px; /* Увеличенный отступ */
+  border: 3px solid; /* Увеличенная толщина рамки */
+  border-image: linear-gradient(to right, #363636, #4b4f53) 1 1; /* Градиентная рамка */
+  background: linear-gradient(to bottom, #c1dde9, #d9e1e6); /* Градиентный фон */
+  color: rgb(0, 0, 0); /* Белый текст */
+  display: none;
+  z-index: 1000000; /* Лучше использовать более конкретный z-index, если возможно */
+}
+
+
+
   </style>
 </head>
 
 <body>
   <div id="message-container"></div>
   <div id="coin"> 🥥0</div>
-  <img id="coinImage" src="image.png" draggable="false" />
+  <img id="coinImage" src="image.png" >
   <div id="errorMessage" style="color: red; font-weight: bold; margin-top: 10px;"></div>
   <div id="errorMessage" style="color: red; font-weight: bold; margin-top: 10px;"></div>
   <div id="level-bar">
     <div id="level-progress"></div>
   </div>
-  <div id="level">Уровень: Начинающий кокосомен</div>
+  <div id="level" class="CLASS">Начинающий кокосомен</div>
   <div id="inventory">
-    <h2>Инвентарь</h2>
+    <h2 id="TEXT">Инвентарь</h2>
     <div id="items"></div>
+    <div id="tooltip">
+      <button id="closeTooltipButton">&times;</button>
+    </div>
   </div>
   <div class="container228">
     <div class="button228" onclick="toggleMiniButtons(this)">
-      <img src="menuchka.png" alt="Меню" draggable="false">
+      <img src="image.png" alt="Меню" draggable="false">
       <div class="button228-text">Кокос</div>
     </div>
     <div class="button228" onclick="toggleMiniButtons(this)">
-      <img src="image1.jpg" alt="Подарки дня" id="dailyGift" onclick="getDailyGift()" draggable="false">
+      <img src="podarok.png" alt="Подарки дня" id="dailyGift" onclick="getDailyGift()" draggable="false">
       <div class="button228-text">Подарки</div>
     </div>
     <div class="button228" onclick="toggleMiniButtons(this)">
-      <img src="image2.jpg" alt="ПРОкачка" draggable="false">
+      <img src="magaz.png" alt="ПРОкачка" draggable="false">
       <div class="button228-text">Магазин</div>
       <div class="mini-buttons">
         <button class="mini-button" id="prokachka">ПРОкачка</button>
@@ -394,11 +455,11 @@
       </div>
     </div>
     <div class="button228" onclick="toggleMiniButtons(this)">
-      <img src="image3.jpg" alt="Задания" id="taskButton" draggable="false">
+      <img src="kvest.png" alt="Задания" id="taskButton" draggable="false">
       <div class="button228-text">Квесты</div>
     </div>
     <div class="button228" onclick="toggleMiniButtons(this)">
-      <img src="image4.jpg" alt="Инвентарь" draggable="false">
+      <img src="inven.png" alt="Инвентарь" draggable="false">
       <div class="button228-text">Рюкзак</div>
       <div class="mini-buttons">
         <button class="mini-button" id="inventoryButton">Предметы</button>
@@ -473,14 +534,14 @@
       codeUsed7 = localStorage.getItem('codeUsed7') === 'true' || false;
       skinbuying = localStorage.getItem('codeUsed7') === 'true' || false;
       localStorage.setItem('skinbuying', skinbuying);
-      coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
+      coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
       const storedItems = localStorage.getItem('items');
       return storedItems ? JSON.parse(storedItems) : [];
-      rare = parseFloat(localStorage.getItem('rare')) || 0.02;
-      epic = parseFloat(localStorage.getItem('epic')) || 0.002;
-      mythic = parseFloat(localStorage.getItem('mythic')) || 0.0002;
-      legendary = parseFloat(localStorage.getItem('legendary')) || 0.00002;
-      secret = parseFloat(localStorage.getItem('secret')) || 0.000002;
+      rare = parseFloat(localStorage.getItem('rare')) || 0.01;
+      epic = parseFloat(localStorage.getItem('epic')) || 0.001;
+      mythic = parseFloat(localStorage.getItem('mythic')) || 0.0001;
+      legendary = parseFloat(localStorage.getItem('legendary')) || 0.00001;
+      secret = parseFloat(localStorage.getItem('secret')) || 0.000001;
       levelDisplay = localStorage.getItem('level');
       levelProgress = localStorage.getItem('level-progress');
 
@@ -489,14 +550,7 @@
         skins.forEach(skinSrc => {
           const img = document.createElement('img');
           img.src = skinSrc;
-          img.className = 'skin1';
-          img.className = 'skin2';
-          img.className = 'skin3';
-          img.className = 'skin4';
-          img.className = 'skin5';
-          img.className = 'skin6';
-          img.className = 'skin7';
-          img.className = 'skin8';
+          img.className = 'skin'; // Позволяем использовать один класс
           img.style.width = '50px';
           img.addEventListener('click', () => {
             document.getElementById('coinImage').src = skinSrc;
@@ -506,7 +560,7 @@
       }
     }
 
-const levelData = [
+    const levelData = [
   { threshold: 200, level: 'Начинающий кокосомен' },
   { threshold: 10000, level: 'Собиратель кокосов' },
   { threshold: 100000, level: 'Кокосовый искатель' },
@@ -536,7 +590,7 @@ function updateLevel() {
   }
 
 
-  levelDisplay.textContent = `Уровень: ${level}`;
+  levelDisplay.textContent = `${level}`;
   levelProgress.style.width = progress + '%';
 
   localStorage.setItem('coinCount', coinCount); // Сохранение в localStorage
@@ -579,13 +633,11 @@ function updateLevel() {
     const taskContainer = document.getElementById('taskContainer');
     updateLevel();
     loadCoins();
-    coinImage.addEventListener('click', () => {
-      updateLevel();
-      coinCount += clickValue * 2;
-      updateLevel();
-      coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
-      saveCoins();
-      showCoins(e, clickValue);
+    coinImage.addEventListener('click', (e) => {
+        updateLevel();
+        coinCount += clickValue;
+        coinDisplay.textContent = `🥥${coinCount}`;
+        saveCoins();
     });
 
     function toggleMiniButtons(button228) {
@@ -626,7 +678,7 @@ taskButtonsGroups.forEach(taskButtons => {
       setTimeout(() => {
         this.textContent = 'Награда взята';
         coinCount += 1000.0;
-        coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
+        coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
         saveCoins();
       }, 5000);
     });
@@ -644,6 +696,11 @@ taskButtonsGroups.forEach(taskButtons => {
         coinElement.remove();
       }, 500);
     }
+    
+
+
+
+
     const inventoryButton = document.getElementById('inventoryButton');
     const inventory = document.getElementById('inventory');
     const itemsContainer = document.getElementById('items');
@@ -697,32 +754,79 @@ taskButtonsGroups.forEach(taskButtons => {
       inventory.style.display = inventory.style.display === 'none' ? 'block' : 'none';
     });
 
-    function updateInventory() {
-      itemsContainer.innerHTML = '';
-      items.forEach(item => {
-        const itemElement = document.createElement('div');
-        itemElement.classList.add('item');
-        const itemImage = document.createElement('img');
-        itemImage.src = item.image;
-        itemElement.appendChild(itemImage);
-        const itemCount = document.createElement('span');
-        itemCount.textContent = `x${item.count}`;
-        itemElement.appendChild(itemCount);
-        itemsContainer.appendChild(itemElement);
-      });
-    }
 
-    function saveItems(items) {
-      localStorage.setItem('items', JSON.stringify(items));
-    }
+    const tooltip = document.createElement('div');
+tooltip.classList.add('tooltip'); // Применяем CSS класс
+document.body.appendChild(tooltip);
 
-    function loadItems() {
-      const storedItems = localStorage.getItem('items');
-      return storedItems ? JSON.parse(storedItems) : [];
-    }
-document.getElementById('prokachka').addEventListener('click', function() {
-        window.location.href = 'https://suspect147.github.io/CoconutPROKACHKA/';
-});
+// Словарь с текстами для каждого типа предмета (HTML tags are now escaped)
+const itemTexts = {
+  'особый': 'Факт про Ethereum!<br> Вторая по популярности и размеру<br> капитализации криптовалюта мира.<br> Несмотря на сравнительно небольшой возраст,<br> объем торгов эфириумом или эфиром,<br> как часто называют этот вид цифровых денег<br> на русском языке, достиг на данный <br>момент $44 млрд., намного превосходя все<br> остальные криптовалюты, за исключением<br> биткоина.Платежная система Ethereum<br> была запущена всередине 2015-го года. <br>За два с небольшим года криптовалюта<br> смогла уверенно выйти на второе<br> место, в некоторых сегментах<br> составляя уверенную конкуренцию<br> еще недавно казавшемуся недосягаемым<br> биткоину. Некоторые специалисты именно эфир<br> считают наиболее перспективным<br> видом виртуальных денег.<br><br> Скоро сюда можно будет ввести код для 10к монет',
+  'легендарный': 'Это легендарный предмет.<br>Здесь краткое описание.',
+  'мифический': 'Это мифический предмет.<br>Здесь краткое описание.',
+  'эпический': 'Это эпический предмет.<br>Здесь краткое описание.',
+  'редкий': 'Это редкий предмет.<br>Здесь краткое описание.',
+};
+
+function updateInventory() {
+  itemsContainer.innerHTML = '';
+  items.forEach(item => {
+    const itemElement = document.createElement('div');
+    itemElement.classList.add('item');
+
+    itemElement.addEventListener('click', (event) => {
+      const text = itemTexts[item.type];
+      tooltip.innerHTML = `${text}`;
+      //Accurate tooltip positioning
+      const rect = itemElement.getBoundingClientRect();
+      const x = 50;
+      const y = 50;
+      tooltip.style.left = 50; //Center horizontally
+      tooltip.style.top = 50; //Adjust vertical position as needed
+      tooltip.style.display = 'block';
+
+            //Hide tooltip on click outside
+            document.addEventListener('click', hideTooltip);
+    });
+
+
+    const itemImage = document.createElement('img');
+    itemImage.src = item.image;
+    itemElement.appendChild(itemImage);
+
+    const itemCount = document.createElement('span');
+    itemCount.textContent = `x${item.count}`;
+    itemElement.appendChild(itemCount);
+
+    itemsContainer.appendChild(itemElement);
+  });
+}
+
+function hideTooltip(e){
+  if(!e.target.classList.contains('item')){
+    tooltip.style.display = 'none';
+    document.removeEventListener('click', hideTooltip);
+  }
+}
+
+function saveItems(items) {
+  localStorage.setItem('items', JSON.stringify(items));
+}
+
+function loadItems() {
+  const storedItems = localStorage.getItem('items');
+  return storedItems ? JSON.parse(storedItems) : [];
+}
+
+
+    
+
+
+
+
+    document.getElementById('prokachka').addEventListener('click', function() {
+      window.location.href = 'https://suspect147.github.io/CoconutPROKACHKA/';
+    });
     document.getElementById('shopButton1').addEventListener('click', () => {
             shop1.style.display = 'block';
         });
@@ -787,7 +891,7 @@ function handleSkinPurchase(skinSrc, cost) {
                 yesButton.addEventListener('click', () => {
                     coinCount -= cost;
                     skins.push(skinSrc);
-                    coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
+                    coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
                     saveInventory();
                     messageBox1.style.display = 'none';
                     updateInventoryDisplay1();
@@ -814,7 +918,6 @@ document.querySelectorAll('img[class^="skin"]').forEach(skin => {
 
 // Вызов функции для обновления инвентаря при загрузке страницы
 updateInventoryDisplay1();
-
 
   </script>
 </body>
