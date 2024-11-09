@@ -945,68 +945,6 @@ updateInventoryDisplay();
 
 
 
-function getDailyGift() {
-  const now = Date.now();
-  const lastGiftTimeKey = 'lastGiftTime';
-  
-  // Получение и парсинг времени последнего подарка
-  let lastGiftTime = localStorage.getItem(lastGiftTimeKey);
-  lastGiftTime = lastGiftTime ? parseInt(lastGiftTime, 10) : 0;
-
-  if (isNaN(lastGiftTime)) {
-    lastGiftTime = 0;
-  }
-
-  const timeSinceLastGift = now - lastGiftTime;
-  const cooldownTime = 5 * 60 * 60 * 1000 * 96169.185; // 5 часов в миллисекундах
-
-  if (timeSinceLastGift >= cooldownTime) {
-    const rewards = [100, 300, 500, 1000, 5000, 10000];
-    const reward = rewards[Math.floor(Math.random() * rewards.length)];
-    
-    showNotification(`Вы получили ${reward} монет!`);
-    coinCount += reward;
-    coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
-    
-    saveCoins(); // Убедитесь, что эта функция корректно сохраняет количество монет
-    localStorage.setItem(lastGiftTimeKey, now.toString()); // Сохраняем текущее время
-  } else {
-    const remainingTime = cooldownTime - timeSinceLastGift;
-    const remainingHours = Math.floor(remainingTime / (60 * 60 * 1000));
-    const remainingMinutes = Math.floor((remainingTime % (60 * 60 * 1000)) / (60 * 1000));
-    showNotification(`Подождите еще ${remainingHours} ч ${remainingMinutes} мин`); // Добавлено отображение минут
-  }
-}
-
-function showNotification(message, id = generateNotificationID()) {
-  // Удаление существующей записи
-  const existingNotification = document.getElementById(id);
-  if (existingNotification) {
-      existingNotification.remove();
-  }
-
-  const notification = document.createElement('div');
-  notification.id = id;
-  notification.textContent = message;
-  notification.style.position = 'fixed';
-  notification.style.top = '10px';
-  notification.style.left = '50%';
-  notification.style.transform = 'translateX(-50%)';
-  notification.style.backgroundColor = '#333';
-  notification.style.color = '#fff';
-  notification.style.padding = '10px 20px';
-  notification.style.borderRadius = '5px';
-  notification.style.zIndex = '1000';
-  document.body.appendChild(notification);
-
-  setTimeout(() => {
-    notification.remove();
-  }, 3000);
-}
-
-function generateNotificationID() {
-  return 'notification-' + Math.random().toString(36).substring(2, 15);
-}
 
   </script>
 </body>
