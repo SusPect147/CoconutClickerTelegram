@@ -337,6 +337,51 @@
       cursor: pointer;
       margin: 10px;
     }
+    .skin14 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .skin15 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .skin16 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .skin17 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .skin19 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .skin19 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .skin20 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .skin21 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .skin18 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
     
     .message-box1 {
       margin: 10px;
@@ -529,12 +574,20 @@
     <img src="skin4.png" class="skin4" data-price="1000" alt="Skin 4" draggable="false">
 
     
-    
-    <img src="skin9.png" class="skin9" data-price="100000" alt="Skin 9" draggable="false">
     <img src="skin10.png" class="skin10" data-price="777777" alt="Skin 10" draggable="false">
     <img src="skin11.png" class="skin11" data-price="1000000" alt="Skin 11" draggable="false">
     <img src="skin12.png" class="skin12" data-price="1000000000" alt="Skin 12" draggable="false">
     <img src="skin13.png" class="skin13" data-price="1000" alt="Skin 13" draggable="false">
+
+
+    <img src="skin14.png" class="skin14" data-price="700" alt="Skin 14" draggable="false">
+    <img src="skin15.png" class="skin15" data-price="3456" alt="Skin 15" draggable="false">
+    <img src="skin16.png" class="skin16" data-price="1000000" alt="Skin 16" draggable="false">
+    <img src="skin17.png" class="skin17" data-price="2854" alt="Skin 17" draggable="false">
+    <img src="skin18.png" class="skin18" data-price="45987123" alt="Skin 18" draggable="false">
+    <img src="skin19.png" class="skin19" data-price="6100" alt="Skin 19" draggable="false">
+    <img src="skin20.png" class="skin20" data-price="15000" alt="Skin 20" draggable="false">
+    <img src="skin21.png" class="skin21" data-price="1234" alt="Skin 21" draggable="false">
     <div class="message-box1" id="messageBox1"></div>
     <button id="closeShopButton1" class="TEXT">Закрыть магазин</button>
   </div>
@@ -766,7 +819,7 @@ taskButtonsGroups.forEach(taskButtons => {
 
 
     document.getElementById('prokachka').addEventListener('click', function() {
-      window.location.href = 'https://suspect147.github.io/CoconutPROKACHKA/';
+      window.location.href = 'http://127.0.0.1:5500/PROkachka.html';
     });
     document.getElementById('shopButton1').addEventListener('click', () => {
             shop1.style.display = 'block';
@@ -795,7 +848,7 @@ function updateInventoryDisplay1() {
     skins.forEach(skinSrc => {
         const img = document.createElement('img');
         img.src = skinSrc;
-        img.className = 'skin1 skin2 skin3 skin4 skin5 skin6 skin7 skin9 skin10 skin11 skin12 skin13'; // Объединяем классы
+        img.className = 'skin1 skin2 skin3 skin4 skin5 skin6 skin7 skin9 skin10 skin11 skin12 skin13 skin14 skin15 skin16 skin17 skin18 skin19 skin20 skin21'; // Объединяем классы
         img.style.width = '50px';
         img.addEventListener('click', () => {
             document.getElementById('coinImage').src = skinSrc;
@@ -868,14 +921,14 @@ updateInventoryDisplay1();
 // Шансы выпадения (в процентах)
 const dropChances = {
     basic: { chance:       0.5, img: "image.png" },
-    rare: { chance:        0.001, img: "редкий.png" },
+    rare: { chance:        0.01, img: "редкий.png" },
     overrare: { chance:    0.005, img: "сверхредкий.png" },
     epic: { chance:        0.0001, img: "эпик.png" },
-    mythic: { chance:      0.0005, img: "мифик.png" },
-    legendary: { chance:   0.00001, img: "легендарный.png" },
-    osobyi: { chance:      0.000005, img: "особый.png" },
-    celestial: { chance:   0.0000001, img: "небесный.png" },
-    divine: { chance:      0.0000005, img: "божественный.png" },
+    mythic: { chance:      0.00005, img: "мифик.png" },
+    legendary: { chance:   0.000001, img: "легендарный.png" },
+    osobyi: { chance:      0.0000005, img: "особый.png" },
+    celestial: { chance:   0.00000001, img: "небесный.png" },
+    divine: { chance:      0.000000005, img: "божественный.png" },
     exlusive: { chance:    0.0000000001, img: "эксклюзивный.png" }
 };
 
@@ -945,6 +998,68 @@ updateInventoryDisplay();
 
 
 
+function getDailyGift() {
+  const now = Date.now();
+  const lastGiftTimeKey = 'lastGiftTime';
+  
+  // Получение и парсинг времени последнего подарка
+  let lastGiftTime = localStorage.getItem(lastGiftTimeKey);
+  lastGiftTime = lastGiftTime ? parseInt(lastGiftTime, 10) : 0;
+
+  if (isNaN(lastGiftTime)) {
+    lastGiftTime = 0;
+  }
+
+  const timeSinceLastGift = now - lastGiftTime;
+  const cooldownTime = 5 * 60 * 60 * 1000 * 100000.185; // 5 часов в миллисекундах
+
+  if (timeSinceLastGift >= cooldownTime) {
+    const rewards = [100, 300, 500, 1000, 5000, 10000];
+    const reward = rewards[Math.floor(Math.random() * rewards.length)];
+    
+    showNotification(`Вы получили ${reward} монет!`);
+    coinCount += reward;
+    coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
+    
+    saveCoins(); // Убедитесь, что эта функция корректно сохраняет количество монет
+    localStorage.setItem(lastGiftTimeKey, now.toString()); // Сохраняем текущее время
+  } else {
+    const remainingTime = cooldownTime - timeSinceLastGift;
+    const remainingHours = Math.floor(remainingTime / (60 * 60 * 1000));
+    const remainingMinutes = Math.floor((remainingTime % (60 * 60 * 1000)) / (60 * 1000));
+    showNotification(`Подождите еще ${remainingHours} ч ${remainingMinutes} мин`); // Добавлено отображение минут
+  }
+}
+
+function showNotification(message, id = generateNotificationID()) {
+  // Удаление существующей записи
+  const existingNotification = document.getElementById(id);
+  if (existingNotification) {
+      existingNotification.remove();
+  }
+
+  const notification = document.createElement('div');
+  notification.id = id;
+  notification.textContent = message;
+  notification.style.position = 'fixed';
+  notification.style.top = '10px';
+  notification.style.left = '50%';
+  notification.style.transform = 'translateX(-50%)';
+  notification.style.backgroundColor = '#333';
+  notification.style.color = '#fff';
+  notification.style.padding = '10px 20px';
+  notification.style.borderRadius = '5px';
+  notification.style.zIndex = '1000';
+  document.body.appendChild(notification);
+
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
+}
+
+function generateNotificationID() {
+  return 'notification-' + Math.random().toString(36).substring(2, 15);
+}
 
   </script>
 </body>
