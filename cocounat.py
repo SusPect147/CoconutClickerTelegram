@@ -22,7 +22,7 @@ long_text = (
 
 game_url = "https://t.me/CoconutClicker"  # Ссылка на вашего бота
 web_app_url = "https://suspect147.github.io/CoconutClickerTelegram/"  # URL мини-игры
-photo_url = "https://raw.githubusercontent.com/SusPect147/CoconutClickerTelegram/main/coconut_coconut.png"
+photo_url = "https://raw.githubusercontent.com/SusPect147/CoconutClickerTelegram/main/coconut_cocon.png"
 
 
 @dp.message(Command("start"))
