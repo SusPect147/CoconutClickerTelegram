@@ -8,85 +8,88 @@
   <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
   <style>
 
-    .container228 {
-      display: flex;
-      height: var(--container-height);
-      justify-content: center;
-      align-items: center;
-      padding: 6px;
-      border: 5px solid transparent;
-      background: linear-gradient(to bottom, #ffffff, #b4b4b4);
-      background-clip: padding-box, border-box;
-      margin-top: 100px;
-      border-radius: 14px;
+.container228 {
+    position: fixed;
+    bottom: 2%;
+    left: 0;
+    width: 98%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 90px;
+    border: 5px solid transparent;
+    background: rgba(10, 7, 7, 0.5);
+    backdrop-filter: blur(10px);
+    background-clip: padding-box, border-box;
+    border-radius: 35px;
+    margin: 0;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
 
-    }
-    
-    .button228 {
-      background-color: transparent;
-      border-radius: 5px;
-      height: var(--button-height);
-      cursor: pointer;
-      margin: 0 5px;
-      flex-direction: column;
-      display: flex;
-      align-items: center;
-      text-align: center;
-      transition: brightness 0.2s;
- 
-    }
-    
-    .button228 img {
-      width: 30px;
-      height: 30px;
-      border-radius: 5px;
-      transition: transform 0.2s;
-      border-radius: 10px;
+.button228 {
+    background-color: transparent;
+    border-radius: 5px;
+    height: var(--button-height);
+    cursor: pointer;
+    margin: 0 5px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    transition: brightness 0.2s;
+}
 
-    }
-    
-    .button228:hover img {
-      transform: scale(1.1);
-    }
-    
-    .button228-text {
-      margin-top: 2.5px;
-      font-size: 15px;
-      color: rgb(0, 0, 0);
+.button228 img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    transition: transform 0.2s;
+    border-radius: 10px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
 
-    }
-    
-    .mini-buttons {
-      display: none;
-      flex-direction: row;
-      margin-bottom: 1px;
-    }
-    
-    .mini-button {
-      background-color: #59a9c2;
-      border: none;
-      border-radius: 5px;
-      padding: 2px 5px;
-      margin: 0 2px;
-      cursor: pointer;
-      color: white;
-      transition: filter 0.2s;
-      height: auto;
-    }
+.button228:hover img {
+    transform: scale(1.1);
+}
+
+.button228-text {
+    margin-top: 2px;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+}
+
+.mini-buttons {
+    display: none;
+    flex-direction: row;
+    margin-bottom: 1px;
+}
+
+.mini-button {
+    background-color: #59a9c2;
+    border: none;
+    border-radius: 5px;
+    padding: 2px 5px;
+    margin: 0 2px;
+    cursor: pointer;
+    color: white;
+    transition: filter 0.2s;
+    height: auto;
+}
     
     body {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom, rgb(34, 34, 34), rgb(0, 0, 0));
+            height: 90vh;
+            background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(255, 255, 255));
             transition: background 0.5s ease;
             user-select: none;
             overflow: hidden;
-            color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
             font-weight: 550;
         }
     
@@ -125,25 +128,25 @@
 
     #coin {
       font-size: 24px;
-      margin-bottom: 93px;
+      top: 70%;
       transition: color 0.5s ease;
-      margin-top: -px;
     }
     
     #upgradeInfo {
       transition: color 0.5s ease;
-      margin-bottom: -px;
     }
     
     img {
-            width: 250px;
-            top: 40%;
-            cursor: pointer;
-            outline: none;
-            pointer-events: auto;
-            -webkit-tap-highlight-color: transparent;
-            transition: transform 0.1s;
-        }
+    width: 300px;
+    top: 40%;
+    cursor: pointer;
+    outline: none;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.1s;
+    user-select: none;
+    -webkit-user-drag: none;
+}
     
     #coinImage:active {
       transform: scale(0.9);
@@ -232,22 +235,24 @@
     }
     
     #inventory,
-    .shop1,
-    .inventory1 {
-      position: absolute;
-      top: 150;
-      left: 50%;
-      top: 50.5%;
-      transform: translate(-50%, -50%);
-      background-color: white;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      padding: 4px;
-      border-radius: 10px;
-      z-index: 1;
-      display: none;
-      color: rgb(0, 0, 0); /* Белый текст */
-    }
-    
+.shop1,
+.inventory1 {
+  position: absolute;
+  top: 50.5%; /* Центрирование по вертикали */
+  left: 0; /* Отступ от левого края */
+  right: 0; /* Отступ от правого края */
+  width: 100%; /* Ширина на всю ширину родительского контейнера */
+  transform: translateY(-50%); /* Центрирование по вертикали */
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 4px;
+  border-radius: 10px;
+  z-index: 1;
+  display: none;
+  color: rgb(0, 0, 0); /* Белый текст */
+  box-sizing: border-box; /* Учитывает отступы в ширине */
+}
+
     .item {
       display: inline-block;
       margin: 5px;
@@ -383,7 +388,26 @@
       cursor: pointer;
       margin: 10px;
     }
-    
+    .skin22 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .skin23 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .skin24 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    .skin25 {
+      width: 50px;
+      cursor: pointer;
+      margin: 10px;
+    }
     .message-box1 {
       margin: 10px;
       display: none;
@@ -399,14 +423,14 @@
     #level-bar {
       width: 300px;
       height: 20px;
-      background: #ccc;
+      background: #686868;
       margin: 10px;
       border-radius: 7px;
     }
     
     #level-progress {
       height: 100%;
-      background: #494b49;
+      background: #030303;
       width: 0;
       border-radius: 7px;
     }
@@ -448,8 +472,7 @@
 
 
     #level {
-  color: rgb(255, 255, 255);
-  height: -50px;
+  color: rgb(10, 8, 8);
 }
 
 
@@ -510,13 +533,36 @@
   0% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(-20px); }
 }
+
+.snowflake {
+      position: fixed;
+      top: -50px;
+      font-size: 1.5rem;
+      color: rgb(17, 176, 204);
+      opacity: 0.8;
+      pointer-events: none;
+      animation-timing-function: linear;
+    }
+
+
+
+
+  /* Кокос по умолчанию */
+  #coinImage {
+    transition: transform 0.2s ease; /* Плавная анимация уменьшения и увеличения */
+  }
+
+  /* Анимация уменьшения */
+  #coinImage.shrink {
+    transform: scale(0.9);
+  }
   </style>
 </head>
 
 <body>
   <div id="message-container"></div>
   <div id="coin"> 🥥0</div>
-  <img id="coinImage" src="image.png" >
+  <img id="coinImage" src="cocos.png" >
   <div id="errorMessage" style="color: red; font-weight: bold; margin-top: 10px;"></div>
   <div id="errorMessage" style="color: red; font-weight: bold; margin-top: 10px;"></div>
   <div id="level-bar">
@@ -528,7 +574,7 @@
     </div>
   <div class="container228">
     <div class="button228" onclick="toggleMiniButtons(this)">
-      <img src="image.png" alt="Меню" draggable="false">
+      <img src="cocos.png" alt="Меню" draggable="false">
       <div class="button228-text">Кокос</div>
     </div>
     <div class="button228" onclick="toggleMiniButtons(this)">
@@ -589,6 +635,11 @@
     <img src="skin19.png" class="skin19" data-price="6100" alt="Skin 19" draggable="false">
     <img src="skin20.png" class="skin20" data-price="15000" alt="Skin 20" draggable="false">
     <img src="skin21.png" class="skin21" data-price="1234" alt="Skin 21" draggable="false">
+
+    <img src="skin22.png" class="skin22" data-price="0" alt="Skin 22" draggable="false">
+    <img src="skin23.png" class="skin23" data-price="10000" alt="Skin 23" draggable="false">
+    <img src="skin24.png" class="skin24" data-price="10000000" alt="Skin 24" draggable="false">
+    <img src="skin27.gif" class="skin25" data-price="100" alt="Skin 25" draggable="false">
     <div class="message-box1" id="messageBox1"></div>
     <button id="closeShopButton1" class="TEXT">Закрыть магазин</button>
   </div>
@@ -739,21 +790,50 @@ const upgradeCostDisplay = document.getElementById('upgradeCost');
 let luckLevel = parseInt(localStorage.getItem('luckLevel')) || 1;
     updateLevel();
     loadCoins();
-    coinImage.addEventListener('click', (e) => {
-        updateLevel();
-        coinCount += clickValue;
-        coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
-        saveCoins();
 
-        // Create and append the notification
-    const notification = document.createElement('div');
-    notification.classList.add('coin-notification');
-    notification.textContent = `+${clickValue}`;
-    const imageRect = coinImage.getBoundingClientRect();
-    notification.style.left = `${imageRect.left + imageRect.width / 2 - notification.offsetWidth / 2}px`; // Center horizontally
-    notification.style.top = `${imageRect.top}px`; // Position above the coin
-    document.body.appendChild(notification);
-    });
+// Логика клика
+const handleClick = () => {
+  // Увеличиваем счётчик монет
+  updateLevel();
+  coinCount += clickValue;
+  coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
+  saveCoins();
+};
+
+// Анимация при нажатии
+const handleMouseDown = () => {
+  coinImage.classList.add('shrink'); // Уменьшаем кнопку
+};
+
+// Анимация при отпускании
+const handleMouseUp = () => {
+  coinImage.classList.remove('shrink'); // Возвращаем кнопку к исходному размеру
+  handleClick(); // Увеличиваем монеты
+};
+
+// Обработчик для клика и анимации
+const handleInteraction = (event) => {
+  if (event.type === 'mousedown' || event.type === 'touchstart') {
+    handleMouseDown();
+  }
+
+  if (event.type === 'mouseup' || event.type === 'touchend') {
+    handleMouseUp();
+  }
+};
+
+// Подключение событий для кнопки
+coinImage.addEventListener('mousedown', handleInteraction); // Для уменьшения при нажатии
+coinImage.addEventListener('mouseup', handleInteraction); // Для возврата при отпускании
+coinImage.addEventListener('mouseleave', handleMouseUp); // Убираем эффект, если мышь покидает кнопку
+
+coinImage.addEventListener('touchstart', handleInteraction); // Для уменьшения на сенсорных устройствах
+coinImage.addEventListener('touchend', handleInteraction); // Для увеличения монет и анимации
+
+
+
+
+
 
     function toggleMiniButtons(button228) {
       // Убираем мини-кнопки от всех кнопок
@@ -849,59 +929,66 @@ function updateInventoryDisplay1() {
     skins.forEach(skinSrc => {
         const img = document.createElement('img');
         img.src = skinSrc;
-        img.className = 'skin1 skin2 skin3 skin4 skin5 skin6 skin7 skin9 skin10 skin11 skin12 skin13 skin14 skin15 skin16 skin17 skin18 skin19 skin20 skin21'; // Объединяем классы
+        img.className = 'skin1 skin2 skin3 skin4 skin5 skin6 skin7 skin9 skin10 skin11 skin12 skin13 skin14 skin15 skin16 skin17 skin18 skin19 skin20 skin21 skin25'; // Объединяем классы 
         img.style.width = '50px';
         img.addEventListener('click', () => {
             document.getElementById('coinImage').src = skinSrc;
+
+            // Проверяем, выбран ли skin25
+            if (skinSrc.includes('skin25')) {
+                luckLevel *= 100000; // Увеличиваем удачу
+                console.log('Luck level set to:', luckLevel);
+            } else {
+                luckLevel = 1; // Сбрасываем удачу до стандартного уровня
+                console.log('Luck level reset to:', luckLevel);
+            }
+
+            // Сохраняем текущий уровень удачи в localStorage
+            localStorage.setItem('luckLevel', luckLevel);
         });
         inventoryDisplay1.appendChild(img);
     });
 }
 
-document.getElementById('inventoryButton1').addEventListener('click', () => {
-    inventory1.style.display = 'block';
-    updateInventoryDisplay1();
-});
-
-document.getElementById('closeShopButton1').addEventListener('click', () => {
-    shop1.style.display = 'none';
-});
-
-document.getElementById('closeInventoryButton1').addEventListener('click', () => {
-    inventory1.style.display = 'none';
-});
-
 function handleSkinPurchase(skinSrc, cost) {
-            if (skins.includes(skinSrc)) {
-                messageBox1.style.display = 'block';
-                messageBox1.textContent = "У Вас уже есть этот скин в инвентаре.";
-                return; // Прекращаем выполнение, если скин уже приобретён
-            }
+    if (skins.includes(skinSrc)) {
+        messageBox1.style.display = 'block';
+        messageBox1.textContent = "У Вас уже есть этот скин в инвентаре.";
+        return; // Прекращаем выполнение, если скин уже приобретён
+    }
 
-            if (coinCount >= cost) {
-                messageBox1.style.display = 'block';
-                messageBox1.textContent = `Хотите купить скин за ${cost}🥥?`;
-                const yesButton = document.createElement('button');
-                yesButton.textContent = "Да";
-                yesButton.addEventListener('click', () => {
-                    coinCount -= cost;
-                    skins.push(skinSrc);
-                    coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
-                    saveInventory();
-                    messageBox1.style.display = 'none';
-                    updateInventoryDisplay1();
-                });
-                const noButton = document.createElement('button');
-                noButton.textContent = "Нет";
-                noButton.addEventListener('click', () => {
-                    messageBox1.style.display = 'none';
-                });
-                messageBox1.appendChild(yesButton);
-                messageBox1.appendChild(noButton);
-            } else {
-              messageBox1.textContent = `Скин стоит ${cost}🥥монет, вы не можете это купить`;
-            }
-        }
+    // Если монет недостаточно, просто показываем стоимость
+    if (coinCount < cost) {
+        messageBox1.style.display = 'block';
+        messageBox1.textContent = `Скин стоит ${cost}🥥 монет. У вас недостаточно монет для покупки.`;
+        return; // Прекращаем выполнение, чтобы не показывать кнопки
+    }
+
+    // Если монет достаточно, показываем окно подтверждения
+    messageBox1.style.display = 'block';
+    messageBox1.textContent = `Хотите купить скин за ${cost}🥥?`;
+    const yesButton = document.createElement('button');
+    yesButton.textContent = "Да";
+    yesButton.addEventListener('click', () => {
+        coinCount -= cost;
+        skins.push(skinSrc);
+        coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
+        saveInventory();
+        messageBox1.style.display = 'none';
+        updateInventoryDisplay1();
+    });
+
+    const noButton = document.createElement('button');
+    noButton.textContent = "Нет";
+    noButton.addEventListener('click', () => {
+        messageBox1.style.display = 'none';
+    });
+
+    // Убираем старые кнопки, если они остались, и добавляем новые
+    messageBox1.innerHTML = messageBox1.textContent; // Удаляет предыдущие кнопки
+    messageBox1.appendChild(yesButton);
+    messageBox1.appendChild(noButton);
+}
 
 // Используем один селектор для всех скинов и получаем цену из атрибута data-price
 document.querySelectorAll('img[class^="skin"]').forEach(skin => {
@@ -910,6 +997,7 @@ document.querySelectorAll('img[class^="skin"]').forEach(skin => {
         handleSkinPurchase(skin.src, price);
     });
 });
+
 
 // Вызов функции для обновления инвентаря при загрузке страницы
 updateInventoryDisplay1();
@@ -921,7 +1009,7 @@ updateInventoryDisplay1();
 
 // Шансы выпадения (в процентах)
 const dropChances = {
-    basic: { chance:       0.5, img: "image.png" },
+    basic: { chance:       0.5, img: "cocos.png" },
     rare: { chance:        0.01, img: "редкий.png" },
     overrare: { chance:    0.005, img: "сверхредкий.png" },
     epic: { chance:        0.0001, img: "эпик.png" },
@@ -995,6 +1083,52 @@ updateInventoryDisplay();
 
 
 
+
+const createSnowflake = () => {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.innerHTML = '❄';
+
+      const size = Math.random() * 20 + 10; // Размер снежинки
+      snowflake.style.fontSize = `${size}px`;
+
+      // Позиция появления снежинки
+      snowflake.style.left = `${Math.random() * window.innerWidth}px`;
+
+      // Длительность анимации (ускоряем падение)
+      const fallDuration = Math.random() * 3 + 2; // 2-5 секунд
+      const swayAmplitude = Math.random() * 100 - 50; // Покачивание (влево/вправо)
+
+      // Задание анимации с комбинированным движением вниз и покачиванием
+      snowflake.style.animation = `
+        fall ${fallDuration}s linear,
+        sway ${fallDuration}s ease-in-out infinite
+      `;
+      snowflake.style.animationName = 'falling';
+
+      // Добавляем снежинку в DOM
+      document.body.appendChild(snowflake);
+
+      // Удаление снежинки после завершения её пути
+      setTimeout(() => snowflake.remove(), fallDuration * 1000);
+    };
+
+    // CSS для анимации
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes falling {
+        from {
+          transform: translateY(-50px) translateX(0);
+        }
+        to {
+          transform: translateY(100vh) translateX(${Math.random() * 100 - 50}px);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Создание снежинок каждые 300 мс
+    setInterval(createSnowflake, 300);
 
 
 
@@ -1075,7 +1209,10 @@ function generateNotificationID() {
         // Применяем режим полного экрана для мини-приложения
         window.Telegram.WebApp.expand();
         window.Telegram.WebApp.requestFullscreen();
+
+        
   </script>
 </body>
 
 </html>
+
