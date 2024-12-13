@@ -666,6 +666,19 @@
       localStorage.setItem('items', JSON.stringify(items));
       localStorage.setItem('level', levelDisplay);
       localStorage.setItem('level-progress', levelProgress);
+      localStorage.setItem('isFirstUpgrade', isFirstUpgrade); // Сохраняем флаг первой прокачки
+
+  // Сохранение автофермы
+  localStorage.setItem('farmUpgradePrice', farmUpgradePrice); // Сохраняем цену прокачки
+  localStorage.setItem('farmCoins', farmCoins); // Сохраняем монеты автофермы
+  localStorage.setItem('farmSpeed', farmSpeed); // Сохраняем текущую скорость
+  localStorage.setItem('minFarmSpeed', minFarmSpeed); // Сохраняем минимальную скорость
+  localStorage.setItem('farmSpeedUpgrade', farmSpeedUpgrade); // Сохраняем шаг улучшения скорости
+
+
+    // Сохраняем количество монет в секунду (рассчитывается как farmCoins / farmSpeed)
+  const coinsPerSecond = (farmCoins / farmSpeed).toFixed(2); // Округляем до 2 знаков
+  localStorage.setItem('coinsPerSecond', coinsPerSecond);
     }
 
     function loadCoins() {
@@ -687,7 +700,16 @@
       return storedItems ? JSON.parse(storedItems) : [];
       levelDisplay = localStorage.getItem('level');
       levelProgress = localStorage.getItem('level-progress');
+        // Загрузка данных автофермы
+  farmUpgradePrice = parseFloat(localStorage.getItem('farmUpgradePrice')) || 50;
+  farmCoins = parseInt(localStorage.getItem('farmCoins')) || 1;
+  farmSpeed = parseFloat(localStorage.getItem('farmSpeed')) || 1;
+  minFarmSpeed = parseFloat(localStorage.getItem('minFarmSpeed')) || 0.3;
+  farmSpeedUpgrade = parseFloat(localStorage.getItem('farmSpeedUpgrade')) || 0.05;
+  farmUpgradeInfoDisplay.textContent = `Стоимость прокачки автофермы: ${farmUpgradePrice.toFixed(0)} 🥥`;
 
+upgradePrice3 = parseInt(localStorage.getItem('upgradePrice3')) || 1000; // Загружаем цену второй прокачки
+c = parseInt(localStorage.getItem('c')) || 9; // Загружаем цену второй прокачк
       function updateInventoryDisplay1() {
         inventoryDisplay1.innerHTML = '';
         skins.forEach(skinSrc => {
@@ -762,6 +784,17 @@ function updateLevel() {
     let celestial =    0.000005;
     let exlusive =     0.000001;
 
+    let isFirstUpgrade = true;
+const upgradeInfoDisplay3 = document.getElementById('upgradeInfo3');
+
+// Прокачка автофермы
+let farmCoins = 1;                // Монеты, генерируемые автофермой
+let farmSpeed = 1;                // Скорость автофермы (интервал в секундах)
+let farmUpgradePrice = 50;        // Цена прокачки автофермы
+let minFarmSpeed = 0.3;           // Минимальная скорость автофермы
+let farmSpeedUpgrade = 0.05;      // Уменьшение скорости за одну прокачку
+
+
 
     let upgradePrice2 = 500;
     let lastClaimTime = localStorage.getItem('lastClaimTime') ? new Date(localStorage.getItem('lastClaimTime')) : null;
@@ -825,7 +858,6 @@ const handleInteraction = (event) => {
 // Подключение событий для кнопки
 coinImage.addEventListener('mousedown', handleInteraction); // Для уменьшения при нажатии
 coinImage.addEventListener('mouseup', handleInteraction); // Для возврата при отпускании
-coinImage.addEventListener('mouseleave', handleMouseUp); // Убираем эффект, если мышь покидает кнопку
 
 coinImage.addEventListener('touchstart', handleInteraction); // Для уменьшения на сенсорных устройствах
 coinImage.addEventListener('touchend', handleInteraction); // Для увеличения монет и анимации
@@ -1196,10 +1228,54 @@ function generateNotificationID() {
   return 'notification-' + Math.random().toString(36).substring(2, 15);
 }
 
+// Прокачка автофермы
+farmUpgradeButton.addEventListener('click', () => {
+  if (coinCount >= farmUpgradePrice) {
+    coinCount -= farmUpgradePrice;
+    
+    // Если прокачка выполняется впервые, увеличиваем farmCoins на 1
+    if (isFirstUpgrade) {
+      farmCoins += 1;
+      isFirstUpgrade = false;  // Устанавливаем флаг, что первая прокачка выполнена
+    } else {
+      // Если прокачка не первая, увеличиваем farmCoins на 50%
+      farmCoins *= 1.5;
+    }
+
+    // Увеличиваем цену следующей прокачки
+    farmUpgradePrice *= PRICEPRO;
+
+    // Обновляем UI
+    coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
+    farmUpgradeInfoDisplay.textContent = `Стоимость прокачки автофермы: ${farmUpgradePrice.toFixed(0)} 🥥`;
+
+    // Сохраняем данные
+    saveCoins();
+  }
+});
+
+// Обновление автофермы
+function updateFarmInterval() {
+  clearInterval(farmInterval);   // Очищаем предыдущий интервал
+  farmInterval = setInterval(farmCoinGeneration, farmSpeed * 1000);  // Новый интервал
+  saveCoins();
+}
+
+// Генерация монет автофермой
+function farmCoinGeneration() {
+  // Количество монет, генерируемых за один цикл, зависит от прокачки автофермы
+  const generatedCoins = Math.floor(farmCoins);  // Округляем до целого числа
+  coinCount += generatedCoins;  // Прибавляем монеты в основной счётчик
+
+  // Обновляем отображение монет
+  coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
+  
+  // Сохраняем данные
+  saveCoins();
+}
 
         
   </script>
 </body>
 
 </html>
-
