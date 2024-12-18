@@ -217,7 +217,7 @@ body {
 
 #spin-button {
     position: absolute;
-    bottom: 15%;
+    bottom: 15%; /* Расположение кнопки спина на экране */
     left: 20px;
     right: 20px;
     padding: 15px;
@@ -230,7 +230,7 @@ body {
     transition: background 0.3s;
     font-weight: bold;
     text-transform: uppercase;
-    z-index: 10; /* Устанавливаем z-index ниже, чем у bet-кнопок */
+    z-index: 10;
 }
 
 #spin-button:disabled {
@@ -244,7 +244,10 @@ body {
 
 /* Новый стиль для кнопок выбора ставки */
 .bet-selection {
-    margin-top: 60%; /* Уменьшаем отступ сверху, чтобы добавить 20px между кнопками */
+    position: absolute;
+    bottom: calc(15% + 20px); /* Отступ на 20px выше кнопки spin */
+    left: 0;
+    right: 0;
     gap: 10px;
     justify-content: center;
     z-index: 100;
@@ -259,7 +262,7 @@ body {
     color: white;
     cursor: pointer;
     transition: background 0.2s;
-    z-index: 100; /* Убедимся, что bet-кнопки всегда выше */
+    z-index: 100;
 }
 
 .bet-button:hover {
@@ -271,6 +274,7 @@ body {
     background-color: #b38600; /* Темно-желтый цвет при выборе */
     z-index: 100;
 }
+
 
 
         .cube {
