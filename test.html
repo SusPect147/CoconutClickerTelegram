@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Отправка звёзд</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <h1>Отправить звезды игре</h1>
+  <button id="sendStarsBtn">Отправить звёзды</button>
+  
+  <script>
+    // Инициализация Telegram Web App
+    const tg = window.Telegram.WebApp;
+
+    // Применяем режим полного экрана для мини-приложения
+    tg.expand();
+
+    // Получение данных пользователя из Telegram Web App
+    const user = tg.initDataUnsafe?.user || {};
+    const userId = user.id; // ID пользователя
+    const username = user.username || `${user.first_name || ''} ${user.last_name || ''}`.trim();
+
+    console.log(`Telegram ID: ${userId}`);
+    console.log(`Username: ${username}`);
+
+    document.getElementById('sendStarsBtn').addEventListener('click', async () => {
+      const starsToGift = 100; // Количество звёзд для отправки
+      const gameUserId = 123456789; // ID аккаунта игры (замените на реальный)
+
+      try {
+        // Имитируем вызов API Telegram
+        // Здесь должен быть ваш клиент Telegram (например, через tdlib или MTProto)
+        const accessHash = "FAKE_ACCESS_HASH"; // Заглушка для accessHash, используйте реальный
+        const invoice = {
+          purpose: {
+            userId: gameUserId,
+            accessHash: accessHash,
+          },
+          stars: starsToGift,
+          currency: 'XTR',
+        };
+
+        console.log("Создан инвойс:", invoice);
+
+        // Здесь должен быть вызов API Telegram (например, MTProto)
+        // const response = await client.invoke(...);
+
+        alert('Звёзды успешно отправлены игре!');
+        console.log('Звёзды отправлены.');
+      } catch (error) {
+        alert('Ошибка при отправке звёзд.');
+        console.error('Ошибка:', error);
+      }
+    });
+  </script>
+</body>
+</html>

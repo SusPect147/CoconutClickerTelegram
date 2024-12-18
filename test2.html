@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, width=device-width">
+    <link rel="icon" type="ma" href="magicticket.png">
+    <title>Slot Machine</title>
+    <style>
+        /* Стиль для тела страницы */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #e0ddddde;
+            overflow: hidden; /* Убираем прокрутку */
+            user-select: none; /* Отключаем выделение текста и объектов */
+        }
+        html {
+  width: 100%;
+  height:100%;
+}
+
+body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+        .wrapper {
+  animation: scroll 100s linear infinite; /* Ускоряем анимацию для визуализации */
+  background: url("background.png") #111111;
+  background-size: cover; /* Увеличиваем изображение на весь экран */
+  background-repeat: repeat-x; /* Повторяем фон по горизонтали для бесконечного эффекта */
+  background-position: 0 0; /* Начальное положение фона */
+  color: #eee;
+  height: 100vh;
+  width: 100vw; /* Устанавливаем ширину на 100% окна */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@keyframes scroll {
+  0% {
+    background-position: 0 0; /* Начальное положение фона */
+  }
+  100% {
+    background-position: 400% 0; /* Конечное положение для создания движения */
+  }
+}
+@media (prefers-reduced-motion) {
+  .wrapper {
+    animation: scroll 800s linear infinite;
+  }
+}
+        .container228 {
+    position: fixed;
+    bottom: 2%;
+    left: 0;
+    width: 98%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 90px;
+    border: 5px solid transparent;
+    background: rgba(10, 7, 7, 0.5);
+    backdrop-filter: blur(10px);
+    background-clip: padding-box, border-box;
+    border-radius: 35px;
+    margin: 0;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.button228 {
+    background-color: transparent;
+    border-radius: 5px;
+    height: var(--button-height);
+    cursor: pointer;
+    margin: 0 5px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    transition: brightness 0.2s;
+}
+
+.button228 img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    transition: transform 0.2s;
+    border-radius: 10px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.button228:hover img {
+    transform: scale(1.1);
+}
+
+.button228-text {
+    margin-top: 2px;
+    font-size: 15px;
+    color: rgb(0, 0, 0);
+}
+
+.mini-buttons {
+    display: none;
+    flex-direction: row;
+    margin-bottom: 1px;
+}
+
+.mini-button {
+    background-color: #59a9c2;
+    border: none;
+    border-radius: 5px;
+    padding: 2px 5px;
+    margin: 0 2px;
+    cursor: pointer;
+    color: white;
+    transition: filter 0.2s;
+    height: auto;
+}
+
+        .ticket-display {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+        }
+
+        .ticket-display img {
+            width: 70px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .ticket-display span {
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        .background-image {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 670px;
+            height: 670px;
+            background: url('magicticket.png') no-repeat center;
+            background-size: contain;
+            opacity: 0.5;
+        }
+
+        .slot-machine {
+            width: 10%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .slots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .slot {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slot img {
+            width: 70px;
+            height: auto;
+            opacity: 0;
+            animation: fadeIn 0.1s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        #spin-button {
+            position: absolute;
+            bottom: 15%;
+            left: 20px;
+            right: 20px;
+            padding: 15px;
+            font-size: 18px;
+            color: #333;
+            background: #ffcc00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        #spin-button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        #spin-button:hover:not(:disabled) {
+            background: #e6b800;
+        }
+
+        /* Новый стиль для кнопок выбора ставки */
+        .bet-selection {
+            margin-top: 80%;
+            gap: 10px;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .bet-button {
+            padding: 10px 15px;
+            font-size: 14px;
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s;
+            z-index: 100;
+        }
+
+        .bet-button:hover {
+            background-color: #e6b800;
+            z-index: 100;
+        }
+
+        .bet-button.selected {
+            background-color: #b38600; /* Темно-желтый цвет при выборе */
+            z-index: 100;
+        }
+        .cube {
+  position: absolute;
+  top: 80vh;
+  left: 45vw;
+  width: 10px;
+  height: 10px;
+  border: solid 1px #D7D4E4;
+  transform-origin: top left;
+  transform: scale(0) rotate(0deg) translate(-50%, -50%);
+  animation: cube 12s ease-in forwards infinite;
+}
+.cube:nth-child(2n) {
+  border-color: #FFF ;
+}
+.cube:nth-child(2) {
+  animation-delay: 2s;
+  left: 25vw;
+  top: 40vh;
+}
+.cube:nth-child(3) {
+  animation-delay: 4s;
+  left: 75vw;
+  top: 50vh;
+}
+.cube:nth-child(4) {
+  animation-delay: 6s;
+  left: 90vw;
+  top: 10vh;
+}
+.cube:nth-child(5) {
+  animation-delay: 8s;
+  left: 10vw;
+  top: 85vh;
+}
+.cube:nth-child(6) {
+  animation-delay: 10s;
+  left: 50vw;
+  top: 10vh;
+}
+
+
+.popup-menu {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 5%;
+            z-index: 1000;
+            width: 70%;
+        }
+
+        .popup-menu button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .popup-menu button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: background-color 0.5s ease;
+        margin: 5px;
+        /* Уменьшен отступ между кнопками */
+        max-width: 90%;
+        box-sizing: border-box;
+    }
+
+    .popup-menu button:hover {
+        background-color: #555;
+    }
+    </style>
+</head>
+<body>
+
+<div class="ticket-display">
+    <img src="ticket.png" alt="Ticket Icon">
+    <span id="ticketsCount">0</span>
+</div>
+
+<div class="background-image"></div>
+
+<div class="slot-machine">
+    <div class="slots">
+        <div class="slot" id="slot1"></div>
+        <div class="slot" id="slot2"></div>
+        <div class="slot" id="slot3"></div>
+    </div>
+</div>
+
+<!-- Контейнер для выбора ставки рядом с кнопкой Spin -->
+<div class="container228">
+    <div class="button228" onclick="toggleMiniButtons(this)">
+      <img src="image.png" alt="Меню" draggable="false" id="menu">
+      <div class="button228-text" >Menu</div>
+    </div>
+    <div class="button228" onclick="toggleMiniButtons(this)">
+      <img src="magaz.png" alt="ПРОкачка" draggable="false" id="shopButton1">
+      <div class="button228-text">Skin Shop</div>
+    </div>
+    <div class="button228" onclick="toggleMiniButtons(this)">
+      <img src="kvest.png" alt="Задания" id="taskButton" draggable="false" alt="Задания" id="taskButton">
+      <div class="button228-text">Quests</div>
+    </div>
+    <div class="button228" onclick="toggleMiniButtons(this)">
+      <img src="inven.png" alt="Инвентарь" draggable="false" id="inventoryButton1">
+      <div class="button228-text">Skins Inv</div>
+    </div>
+    <div class="button228" onclick="toggleMiniButtons_1()">
+      <img src="other.png" alt="Задания" id="OTHERmenu" draggable="false">
+      <div class="button228-text">Other</div>
+  </div>
+  </div>
+</div>
+<div class="overlay" id="overlay" onclick="closePopupMenu()"></div>
+
+<div class="popup-menu" id="popupMenu">
+    <button onclick="redirectToSite('PROkachka.html')">Upgrade Your Coconut!</button>
+    <button onclick="redirectToSite('test2.html')">LET'SF SPIN FOR TICKETS!</button>
+    <button onclick="toggleInventory()">Inventory</button>
+    <button onclick="redirectToSite('')">Leader Board(coming soon)</button>
+    <button onclick="redirectToSite('')">Clans(coming soon)</button>
+    <button onclick="redirectToSite('')">Friends(coming soon)</button>
+    <button onclick="redirectToSite('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">Not a rickroll</button>
+</div>
+
+<!-- Контейнер для выбора ставки рядом с кнопкой Spin -->
+<button id="spin-button">Spin</button>
+<div class="bet-selection">
+    <button class="bet-button" onclick="setBet(100)">100 tickets</button>
+    <button class="bet-button" onclick="setBet(1000)">1k tickets</button>
+    <button class="bet-button" onclick="setBet(25000)">25k tickets</button>
+    <button class="bet-button" onclick="setBet(50000)">50k tickets</button>
+</div>
+
+
+<script>
+   const images = [
+    'skin1.png',
+    'skin2.png',
+    'skin3.png',
+    'skin4.png',
+    'skin5.png',
+    'skin6.png',
+    'skin7.png',
+    'skin11.png',
+    'skin9.png',
+    'skin10.png'
+];
+document.getElementById('menu').addEventListener('click', function() {
+            // Здесь Вы можете использовать url, на который хотите перейти
+            window.location.href = 'index.html'; // Замените на нужный URL
+        });
+        document.getElementById('shopButton1').addEventListener('click', function() {
+            // Здесь Вы можете использовать url, на который хотите перейти
+            window.location.href = 'index.html'; // Замените на нужный URL
+        });
+        document.getElementById('taskButton').addEventListener('click', function() {
+            // Здесь Вы можете использовать url, на который хотите перейти
+            window.location.href = 'index.html'; // Замените на нужный URL
+        });
+        document.getElementById('inventoryButton1').addEventListener('click', function() {
+            // Здесь Вы можете использовать url, на который хотите перейти
+            window.location.href = 'index.html'; // Замените на нужный URL
+        });
+// Загружаем количество тикетов из localStorage или устанавливаем значение по умолчанию
+let tickets = parseInt(localStorage.getItem('ticketsCount')) || 0;
+
+const ticketsCountElement = document.getElementById('ticketsCount');
+const slots = [
+    document.getElementById('slot1'),
+    document.getElementById('slot2'),
+    document.getElementById('slot3')
+];
+const spinButton = document.getElementById('spin-button');
+const betButtons = document.querySelectorAll('.bet-button');
+
+let bet = 100; // Ставка по умолчанию
+
+// Функция сохранения тикетов в localStorage
+function saveTickets() {
+    localStorage.setItem('ticketsCount', tickets);
+}
+
+// Функция обновления тикетов и интерфейса
+function updateTickets(amount) {
+    tickets += amount;
+    ticketsCountElement.textContent = tickets;
+    saveTickets();
+}
+
+// Слушаем изменения в localStorage
+window.addEventListener('storage', (event) => {
+    if (event.key === 'ticketsCount') {
+        tickets = parseInt(event.newValue) || 0;
+        ticketsCountElement.textContent = tickets;
+    }
+});
+
+// Функция для установки ставки
+function setBet(amount) {
+    bet = amount;
+
+    // Убираем класс 'selected' у всех кнопок
+    betButtons.forEach(button => button.classList.remove('selected'));
+
+    // Добавляем класс 'selected' на выбранную кнопку
+    const selectedButton = Array.from(betButtons).find(button => button.textContent.includes(bet));
+    selectedButton.classList.add('selected');
+}
+
+// Функция анимации слота
+function animateSlot(slot, finalImage) {
+    return new Promise(resolve => {
+        let count = 0;
+        const maxCycles = 10; // Total animation cycles
+        const interval = setInterval(() => {
+            const randomImage = images[Math.floor(Math.random() * images.length)];
+            slot.innerHTML = `<img src="${randomImage}" alt="">`;
+            count++;
+            if (count === maxCycles) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    slot.innerHTML = `<img src="${finalImage}" alt="">`;
+                    resolve();
+                }, 200);
+            }
+        }, 100 + (maxCycles - count) * 10); // Speed up over time
+    });
+}
+
+// Функция для запуска слотов
+async function spinSlots() {
+    if (tickets < bet) {
+        return;
+    }
+
+    spinButton.disabled = true;
+    spinButton.textContent = 'Wait';
+
+    updateTickets(-bet);
+
+    const results = slots.map(() => images[Math.floor(Math.random() * images.length)]);
+
+    await Promise.all(slots.map((slot, index) => animateSlot(slot, results[index])));
+
+    const reward = calculateReward(results);
+    updateTickets(reward);
+
+    setTimeout(() => {
+        spinButton.disabled = false;
+        spinButton.textContent = 'Spin';
+    }, 2000); // 2 секундная задержка
+}
+
+// Функция расчета награды
+function calculateReward(results) {
+    const counts = results.reduce((acc, item) => {
+        acc[item] = (acc[item] || 0) + 1;
+        return acc;
+    }, {});
+
+    // Проверяем, если все три слота содержат skin10
+    if (results.every(item => item === 'skin2.png')) {
+        if (bet === 100) return 10000000;
+        if (bet === 1000) return 10000000;
+        if (bet === 25000) return 250000000;
+        if (bet === 50000) return 500000000;
+    }
+
+    const keys = Object.keys(counts);
+    const values = Object.values(counts);
+
+    // Rewards based on counts
+    if (values.includes(3)) {
+        if (bet === 100) return 100000;
+        if (bet === 1000) return 300000;
+        if (bet === 25000) return 7500000;
+        if (bet === 50000) return 15000000;
+    } else if (values.includes(2)) {
+        if (bet === 100) return 10000;
+        if (bet === 1000) return 30000;
+        if (bet === 25000) return 750000;
+        if (bet === 50000) return 1500000;
+    }
+
+    return 0; // No reward
+}
+
+// Слушаем изменения в localStorage для синхронизации
+window.addEventListener('storage', (event) => {
+    if (event.key === 'ticketsCount') {
+        tickets = parseInt(event.newValue) || 0;
+        ticketsCountElement.textContent = tickets;
+    }
+});
+
+// Изначально обновляем количество тикетов при загрузке
+ticketsCountElement.textContent = tickets;
+
+// Добавляем обработчик на кнопку спина
+spinButton.addEventListener('click', spinSlots);
+function toggleMiniButtons_1() {
+        const popupMenu = document.getElementById('popupMenu');
+        const overlay = document.getElementById('overlay');
+
+        // Show the popup menu and overlay
+        popupMenu.style.display = 'block';
+        overlay.style.display = 'block';
+    }
+
+    function closePopupMenu() {
+        const popupMenu = document.getElementById('popupMenu');
+        const overlay = document.getElementById('overlay');
+
+        // Hide the popup menu and overlay
+        popupMenu.style.display = 'none';
+        overlay.style.display = 'none';
+    }
+
+    function redirectToSite(url) {
+        window.location.href = url;
+    }
+
+</script>
+
+
+</body>
+</html>

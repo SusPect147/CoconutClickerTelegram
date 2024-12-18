@@ -7,7 +7,23 @@
   <title>Coconut clicker</title>
   <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
   <style>
+body {
+  background: linear-gradient(-45deg, #eed152, #e73c7e, #23a6d5, #05f04b);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
 
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
 .container228 {
     position: fixed;
     bottom: 2%;
@@ -85,7 +101,6 @@
             justify-content: center;
             font-family: Arial, sans-serif;
             height: 90vh;
-            background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(255, 255, 255));
             transition: background 0.5s ease;
             user-select: none;
             overflow: hidden;
@@ -164,7 +179,7 @@
       background-color: #333;
       color: #fff;
       border: none;
-      border-radius: 40px;
+      border-radius: 15px;
       cursor: pointer;
       transition: background-color 0.5s ease;
       margin: 5px;
@@ -556,12 +571,68 @@
   #coinImage.shrink {
     transform: scale(0.9);
   }
+
+  .popup-menu {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 5%;
+            z-index: 1000;
+            width: 70%;
+        }
+
+        .popup-menu button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        #taskContainer {
+  position: absolute;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  z-index: 1000;
+  display: none; /* Скрыто по умолчанию */
+}
+
+.taskButton1, .taskButton2, .taskButton3 {
+  cursor: pointer;
+  padding: 10px;
+  margin: 5px;
+  background-color: #444242;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.taskButton1:hover, .taskButton2:hover, .taskButton3:hover {
+  background-color: #ddd;
+}
+
   </style>
 </head>
 
 <body>
   <div id="message-container"></div>
-  <div id="coin"> 🥥0</div>
+  <div id="coin" class="coinV2"> 🥥0</div>
   <img id="coinImage" src="cocos.png" >
   <div id="errorMessage" style="color: red; font-weight: bold; margin-top: 10px;"></div>
   <div id="errorMessage" style="color: red; font-weight: bold; margin-top: 10px;"></div>
@@ -572,36 +643,44 @@
     <div id="inventory">
       <h2>Инвентарь</h2>
     </div>
-  <div class="container228">
-    <div class="button228" onclick="toggleMiniButtons(this)">
-      <img src="cocos.png" alt="Меню" draggable="false">
-      <div class="button228-text">Кокос</div>
-    </div>
-    <div class="button228" onclick="toggleMiniButtons(this)">
-      <img src="podarok.png" alt="Подарки дня" id="dailyGift" onclick="getDailyGift()" draggable="false">
-      <div class="button228-text">Подарки</div>
-    </div>
-    <div class="button228" onclick="toggleMiniButtons(this)">
-      <img src="magaz.png" alt="ПРОкачка" draggable="false">
-      <div class="button228-text">Магазин</div>
-      <div class="mini-buttons">
-        <button class="mini-button" id="prokachka">ПРОкачка</button>
-        <button class="mini-button" id="shopButton1">Скины</button>
+    <div class="container228">
+      <div class="button228" onclick="toggleMiniButtons(this)">
+        <img src="image.png" alt="Меню" draggable="false">
+        <div class="button228-text">Menu</div>
       </div>
-    </div>
-    <div class="button228" onclick="toggleMiniButtons(this)">
-      <img src="kvest.png" alt="Задания" id="taskButton" draggable="false">
-      <div class="button228-text">Квесты</div>
-    </div>
-    <div class="button228" onclick="toggleMiniButtons(this)">
-      <img src="inven.png" alt="Инвентарь" draggable="false">
-      <div class="button228-text">Рюкзак</div>
-      <div class="mini-buttons">
-        <button class="mini-button" onclick="toggleInventory()">Предметы</button>
-        <button class="mini-button" id="inventoryButton1">Скины</button>
+      <div class="button228" onclick="toggleMiniButtons(this)">
+        <img src="magaz.png" alt="ПРОкачка" draggable="false" id="shopButton1">
+        <div class="button228-text">Skin Shop</div>
       </div>
+      <!-- Кнопка "Quests" -->
+<div class="button228" onclick="toggleMiniButtons('quests')"> 
+  <img src="kvest.png" alt="Задания" id="taskButton" draggable="false">
+  <div class="button228-text">Quests</div>
+</div>
+
+<!-- Кнопка "Skins Inv" -->
+<div class="button228" onclick="toggleMiniButtons('skins')"> 
+  <img src="inven.png" alt="Инвентарь" draggable="false" id="inventoryButton1">
+  <div class="button228-text">Skins Inv</div>
+</div>
+      <div class="button228" onclick="toggleMiniButtons_1()">
+        <img src="other.png" alt="Задания" id="OTHERmenu" draggable="false">
+        <div class="button228-text">Other</div>
+    </div>
     </div>
   </div>
+  <div class="overlay" id="overlay" onclick="closePopupMenu()"></div>
+
+  <div class="popup-menu" id="popupMenu">
+      <button onclick="redirectToSite('PROkachka.html')">Upgrade Your Coconut!</button>
+      <button onclick="redirectToSite('test2.html')">LET'SF SPIN FOR TICKETS!</button>
+      <button onclick="toggleInventory()">Inventory</button>
+      <button onclick="redirectToSite('')">Leader Board(coming soon)</button>
+      <button onclick="redirectToSite('')">Clans(coming soon)</button>
+      <button onclick="redirectToSite('')">Friends(coming soon)</button>
+      <button onclick="redirectToSite('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">Not a rickroll</button>
+  </div>
+
 
   <div id="taskContainer">
     <h2>Задания</h2>
@@ -623,7 +702,6 @@
     
     <img src="skin10.png" class="skin10" data-price="777777" alt="Skin 10" draggable="false">
     <img src="skin11.png" class="skin11" data-price="1000000" alt="Skin 11" draggable="false">
-    <img src="skin12.png" class="skin12" data-price="1000000000" alt="Skin 12" draggable="false">
     <img src="skin13.png" class="skin13" data-price="1000" alt="Skin 13" draggable="false">
 
 
@@ -631,7 +709,6 @@
     <img src="skin15.png" class="skin15" data-price="3456" alt="Skin 15" draggable="false">
     <img src="skin16.png" class="skin16" data-price="1000000" alt="Skin 16" draggable="false">
     <img src="skin17.png" class="skin17" data-price="2854" alt="Skin 17" draggable="false">
-    <img src="skin18.png" class="skin18" data-price="45987123" alt="Skin 18" draggable="false">
     <img src="skin19.png" class="skin19" data-price="6100" alt="Skin 19" draggable="false">
     <img src="skin20.png" class="skin20" data-price="15000" alt="Skin 20" draggable="false">
     <img src="skin21.png" class="skin21" data-price="1234" alt="Skin 21" draggable="false">
@@ -639,7 +716,9 @@
     <img src="skin22.png" class="skin22" data-price="0" alt="Skin 22" draggable="false">
     <img src="skin23.png" class="skin23" data-price="10000" alt="Skin 23" draggable="false">
     <img src="skin24.png" class="skin24" data-price="10000000" alt="Skin 24" draggable="false">
-    <img src="skin27.gif" class="skin25" data-price="10000000000" alt="Skin 25" draggable="false">
+    <img src="skin27.gif" class="skin24" data-price="10000000" alt="Skin 27" draggable="false">
+    <img src="OFFICIALcoconutLOGO1.png" class="skin24" data-price="0" alt="Skin 25" draggable="false">
+    <img src="ticket.png" class="skin24" data-price="123456789123456789123456789" alt="Skin 26" draggable="false">
     <div class="message-box1" id="messageBox1"></div>
     <button id="closeShopButton1" class="TEXT">Закрыть магазин</button>
   </div>
@@ -655,6 +734,7 @@
       localStorage.setItem('clickValue', clickValue);
       localStorage.setItem('upgradePrice', upgradePrice); // Сохраняем цену прокачки
       localStorage.setItem('upgradePrice2', upgradePrice2); // Сохраняем цену прокачки
+      localStorage.setItem('ticketsCount', ticketsCount); // Сохраняем цену прокачки
       localStorage.setItem('codeUsed1', codeUsed1);
       localStorage.setItem('codeUsed2', codeUsed2);
       localStorage.setItem('codeUsed3', codeUsed3);
@@ -674,7 +754,7 @@
   localStorage.setItem('farmSpeed', farmSpeed); // Сохраняем текущую скорость
   localStorage.setItem('minFarmSpeed', minFarmSpeed); // Сохраняем минимальную скорость
   localStorage.setItem('farmSpeedUpgrade', farmSpeedUpgrade); // Сохраняем шаг улучшения скорости
-
+  localStorage.setItem('basic', basic); // Сохраняем шаг улучшения скорости
 
     // Сохраняем количество монет в секунду (рассчитывается как farmCoins / farmSpeed)
   const coinsPerSecond = (farmCoins / farmSpeed).toFixed(2); // Округляем до 2 знаков
@@ -686,6 +766,7 @@
       clickValue = parseFloat(localStorage.getItem('clickValue')) || 1;
       upgradePrice = parseInt(localStorage.getItem('upgradePrice')) || 100; // Загружаем цену прокачки
       upgradePrice2 = parseInt(localStorage.getItem('upgradePrice2')) || 500; // Загружаем цену второй прокачки
+      basic = parseInt(localStorage.getItem('basic')) || 0; // Загружаем цену второй прокачки
       codeUsed1 = localStorage.getItem('codeUsed1') === 'true' || false;
       codeUsed2 = localStorage.getItem('codeUsed2') === 'true' || false;
       codeUsed3 = localStorage.getItem('codeUsed3') === 'true' || false;
@@ -726,20 +807,21 @@ c = parseInt(localStorage.getItem('c')) || 9; // Загружаем цену в�
     }
 
     const levelData = [
-  { threshold: 200, level: 'Начинающий кокосомен' },
-  { threshold: 10000, level: 'Собиратель кокосов' },
-  { threshold: 100000, level: 'Кокосовый искатель' },
-  { threshold: 500000, level: 'Деревенский кокосомен' },
-  { threshold: 2000000, level: 'Кокосовый самородок' },
-  { threshold: 10000000, level: 'Кокосовое счастье' },
-  { threshold: 20000000, level: 'Кокосовый капиталист' },
-  { threshold: 50000000, level: 'Торговец кокосами' },
-  { threshold: 150000000, level: 'Магнат кокосов' },
-  { threshold: 1000000000, level: 'Волшебник кокосов' },
-  { threshold: 5000000000, level: 'Кокосовый император' },
-  { threshold: 10000000000, level: 'Кокосовый шейх' },
-  { threshold: Infinity, level: 'Мастер кокосов' } // Последний уровень
+  { threshold: 200, level: 'Beginner Coconut Collector' },
+  { threshold: 10000, level: 'Coconut Gatherer' },
+  { threshold: 100000, level: 'Coconut Seeker' },
+  { threshold: 500000, level: 'Village Coconut Collector' },
+  { threshold: 2000000, level: 'Coconut Nugget' },
+  { threshold: 10000000, level: 'Coconut Bliss' },
+  { threshold: 20000000, level: 'Coconut Capitalist' },
+  { threshold: 50000000, level: 'Coconut Trader' },
+  { threshold: 150000000, level: 'Coconut Tycoon' },
+  { threshold: 1000000000, level: 'Coconut Wizard' },
+  { threshold: 5000000000, level: 'Coconut Emperor' },
+  { threshold: 10000000000, level: 'Coconut Sheikh' },
+  { threshold: Infinity, level: 'Master of Coconuts' } // Final level
 ];
+
 
 function updateLevel() {
   let coinCount = parseInt(localStorage.getItem('coinCount')) || 0; // Загрузка из localStorage
@@ -773,16 +855,7 @@ function updateLevel() {
     let codeUsed7 = false;
 
 
-    let basic =        0.05;
-    let rare =         0.01;
-    let overrare =     0.005;
-    let epic =         0.001;
-    let mythic =       0.0005;
-    let legendary =    0.0001;
-    let osobyi =       0.00005;
-    let divine =       0.00001;
-    let celestial =    0.000005;
-    let exlusive =     0.000001;
+
 
     let isFirstUpgrade = true;
 const upgradeInfoDisplay3 = document.getElementById('upgradeInfo3');
@@ -866,51 +939,78 @@ coinImage.addEventListener('touchend', handleInteraction); // Для увели�
 
 
 
+function toggleMiniButtons_1() {
+        const popupMenu = document.getElementById('popupMenu');
+        const overlay = document.getElementById('overlay');
 
-    function toggleMiniButtons(button228) {
-      // Убираем мини-кнопки от всех кнопок
-      document.querySelectorAll('.button228.active').forEach(function(b) {
-        if (b !== button228) {
-          b.classList.remove('active');
-          b.querySelector('.mini-buttons').style.display = 'none';
-        }
+        // Show the popup menu and overlay
+        popupMenu.style.display = 'block';
+        overlay.style.display = 'block';
+    }
+
+    function closePopupMenu() {
+        const popupMenu = document.getElementById('popupMenu');
+        const overlay = document.getElementById('overlay');
+
+        // Hide the popup menu and overlay
+        popupMenu.style.display = 'none';
+        overlay.style.display = 'none';
+    }
+
+    function redirectToSite(url) {
+        window.location.href = url;
+    }
+
+
+// Функция для переключения видимости меню
+function toggleMiniButtons(menuType) {
+  if (menuType === 'quests') {
+    const taskContainer = document.getElementById('taskContainer');
+    taskContainer.style.display = taskContainer.style.display === 'none' ? 'block' : 'none';
+    initializeQuestButtons();
+  } else if (menuType === 'skins') {
+    const skinsContainer = document.getElementById('skinsContainer');
+    skinsContainer.style.display = skinsContainer.style.display === 'none' ? 'block' : 'none';
+    // Здесь можно добавить инициализацию инвентаря, если нужно
+  }
+}
+
+// Инициализация кнопок заданий
+function initializeQuestButtons() {
+  const taskButtonsGroups = [
+    document.querySelectorAll('.taskButton1'),
+    document.querySelectorAll('.taskButton2'),
+    document.querySelectorAll('.taskButton3')
+  ];
+
+  taskButtonsGroups.forEach(taskButtons => {
+    taskButtons.forEach(button => {
+      const buttonId = button.getAttribute('data-id');
+      // Проверяем состояние кнопки только один раз при загрузке страницы
+      const isButtonDisabled = localStorage.getItem(`button_${buttonId}`) === 'true';
+      if (isButtonDisabled) {
+        button.disabled = true;
+        button.textContent = 'Награда взята';
+      }
+
+      button.addEventListener('click', function() {
+        const url = this.getAttribute('data-url');
+        this.textContent = 'В процессе получения кокосов';
+        window.open(url, '_blank');
+        this.disabled = true;
+        localStorage.setItem(`button_${buttonId}`, 'true');
+        setTimeout(() => {
+          this.textContent = 'Награда взята';
+          coinCount += 1000.0;
+          coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
+          saveCoins();
+        }, 5000);
       });
-      // Переключаем мини-кнопки для выбранной кнопки
-      const miniButtons = button228.querySelector('.mini-buttons');
-      miniButtons.style.display = miniButtons.style.display === 'none' ? 'flex' : 'none';
-      button228.classList.toggle('active');
-    }
-    document.getElementById('taskButton').addEventListener('click', () => {
-      taskContainer.style.display = taskContainer.style.display === 'none' ? 'block' : 'none';
-    });
-// Обработчик для групп кнопок
-const taskButtonsGroups = [document.querySelectorAll('.taskButton1'), document.querySelectorAll('.taskButton2'), document.querySelectorAll('.taskButton3')];
-
-taskButtonsGroups.forEach(taskButtons => {
-  taskButtons.forEach(button => {
-    const buttonId = button.getAttribute('data-id');
-    // Проверяем состояние кнопки только один раз при загрузке страницы
-    const isButtonDisabled = localStorage.getItem(`button_${buttonId}`) === 'true';
-    if (isButtonDisabled) {
-      button.disabled = true;
-      button.textContent = 'Награда взята';
-    }
-    
-    button.addEventListener('click', function() {
-      const url = this.getAttribute('data-url');
-      this.textContent = 'В процессе получения кокосов';
-      window.open(url, '_blank');
-      this.disabled = true;
-      localStorage.setItem(`button_${buttonId}`, 'true');
-      setTimeout(() => {
-        this.textContent = 'Награда взята';
-        coinCount += 1000.0;
-        coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
-        saveCoins();
-      }, 5000);
     });
   });
-});
+}
+
+
 
     function showCoins(e, amount) {
       const coinElement = document.createElement('div');
@@ -931,9 +1031,7 @@ taskButtonsGroups.forEach(taskButtons => {
 
 
 
-    document.getElementById('prokachka').addEventListener('click', function() {
-      window.location.href = 'https://suspect147.github.io/CoconutPROKACHKA/';
-    });
+
     document.getElementById('shopButton1').addEventListener('click', () => {
             shop1.style.display = 'block';
         });
@@ -961,19 +1059,22 @@ function updateInventoryDisplay1() {
     skins.forEach(skinSrc => {
         const img = document.createElement('img');
         img.src = skinSrc;
-        img.className = 'skin1 skin2 skin3 skin4 skin5 skin6 skin7 skin9 skin10 skin11 skin12 skin13 skin14 skin15 skin16 skin17 skin18 skin19 skin20 skin21 skin25'; // Объединяем классы 
+        img.className = 'skin1 skin2 skin3 skin4 skin5 skin6 skin7 skin9 skin10 skin11 skin12 skin13 skin14 skin15 skin16 skin17 skin18 skin19 skin20 skin21 skin25 skin26 skin27'; // Объединяем классы 
         img.style.width = '50px';
         img.addEventListener('click', () => {
             document.getElementById('coinImage').src = skinSrc;
 
             // Проверяем, выбран ли skin25
-            if (skinSrc.includes('skin25')) {
-                luckLevel *= 100000; // Увеличиваем удачу
-                console.log('Luck level set to:', luckLevel);
-            } else {
-                luckLevel = 1; // Сбрасываем удачу до стандартного уровня
-                console.log('Luck level reset to:', luckLevel);
-            }
+if (skinSrc.includes('skin25')) {
+    luckLevel *= 1000000; // Увеличиваем удачу
+    console.log('Luck level set to:', luckLevel);
+} else if (skinSrc.includes('skin26')) {  // Используем else if, а не elif
+    luckLevel *= 1000; // Увеличиваем удачу
+    console.log('Luck level set to:', luckLevel);
+} else {
+    luckLevel = luckLevel; // Сбрасываем удачу до стандартного уровня
+    console.log('Luck level reset to:', luckLevel);
+}
 
             // Сохраняем текущий уровень удачи в localStorage
             localStorage.setItem('luckLevel', luckLevel);
@@ -1041,7 +1142,7 @@ updateInventoryDisplay1();
 
 // Шансы выпадения (в процентах)
 const dropChances = {
-    basic: { chance:       0.5, img: "cocos.png" },
+    tickets: { chance:    0.5, img: "ticket.png" },
     rare: { chance:        0.01, img: "редкий.png" },
     overrare: { chance:    0.005, img: "сверхредкий.png" },
     epic: { chance:        0.0001, img: "эпик.png" },
@@ -1053,54 +1154,96 @@ const dropChances = {
     exlusive: { chance:    0.0000000001, img: "эксклюзивный.png" }
 };
 
-
 // Загрузка инвентаря из localStorage
 let inventory = JSON.parse(localStorage.getItem('inventory1')) || {};
+// Загрузка инвентаря из localStorage
+let ticketsCount = parseInt(localStorage.getItem('ticketsCount')) || 0;
+
+function updateTicketsDisplay() {
+    if (ticketsCount > 0) {
+        const ticketsElement = document.createElement('div');
+        ticketsElement.classList.add('item');
+        ticketsElement.innerHTML = `<img src="${dropChances.tickets.img}" alt="tickets"> ${ticketsCount}`;
+        inventoryDiv.appendChild(ticketsElement);
+    }
+}
+
+function updateTickets(amount) {
+    ticketsCount += amount;
+    localStorage.setItem('ticketsCount', ticketsCount); // Сохраняем тикеты
+    updateInventoryDisplay();
+}
+
+// Следим за изменениями localStorage
+window.addEventListener('storage', (event) => {
+    if (event.key === 'ticketsCount') {
+        ticketsCount = parseInt(event.newValue) || 0;
+        updateInventoryDisplay();
+    }
+});
+
+// Изначальное отображение инвентаря
+updateInventoryDisplay();
+
 
 function updateInventoryDisplay() {
     inventoryDiv.innerHTML = ''; // Очищаем инвентарь перед обновлением
-    for (const itemType in inventory) {
-        const itemCount = inventory[itemType];
-        if (itemCount > 0) {
-          const itemElement = document.createElement('div');
-          itemElement.classList.add('item');
-          itemElement.innerHTML = `<img src="${dropChances[itemType].img}" alt="${itemType}"> ${itemCount}`;
-          inventoryDiv.appendChild(itemElement);
+
+    // Отображение tickets отдельно
+    if (ticketsCount > 0) {
+        const ticketsElement = document.createElement('div');
+        ticketsElement.classList.add('item');
+        ticketsElement.innerHTML = `<img src="${dropChances.tickets.img}" alt="tickets"> ${ticketsCount}`;
+        inventoryDiv.appendChild(ticketsElement);
+    }
+
+    // Отображение остальных предметов
+    for (const itemType in dropChances) {
+        if (itemType !== 'tickets' && inventory[itemType] > 0) {
+            const itemElement = document.createElement('div');
+            itemElement.classList.add('item');
+            itemElement.innerHTML = `<img src="${dropChances[itemType].img}" alt="${itemType}"> ${inventory[itemType]}`;
+            inventoryDiv.appendChild(itemElement);
         }
     }
 }
 
 function addItem(itemType) {
-    inventory[itemType] = (inventory[itemType] || 0) + 1;
-    localStorage.setItem('inventory1', JSON.stringify(inventory));
+    if (itemType === 'tickets') {
+        ticketsCount += 1;
+        localStorage.setItem('ticketsCount', ticketsCount);
+    } else {
+        inventory[itemType] = (inventory[itemType] || 0) + 1;
+        localStorage.setItem('inventory1', JSON.stringify(inventory));
+    }
     updateInventoryDisplay();
+    saveCoins();
 }
 
 function getRandomItem() {
     let totalChance = 0;
     for (const item in dropChances) {
-      totalChance += dropChances[item].chance * luckLevel;
+        totalChance += dropChances[item].chance * luckLevel;
     }
 
     let randomNum = Math.random() * totalChance;
     let cumulativeChance = 0;
 
     for (const item in dropChances) {
-      cumulativeChance += dropChances[item].chance * luckLevel;
-      if (randomNum <= cumulativeChance) {
-        return item;
-      }
+        cumulativeChance += dropChances[item].chance * luckLevel;
+        if (randomNum <= cumulativeChance) {
+            return item;
+        }
     }
     return null;
 }
-
 
 coinImage.addEventListener('click', () => {
     const droppedItem = getRandomItem();
     if (droppedItem) {
         addItem(droppedItem);
     } else {
-        console.error("Error: getRandomItem() returned null.  Check dropChances configuration.");
+        console.error("Error: getRandomItem() returned null. Check dropChances configuration.");
     }
 });
 
@@ -1108,9 +1251,8 @@ function toggleInventory() {
     inventoryDiv.style.display = inventoryDiv.style.display === 'none' ? 'block' : 'none';
 }
 
-//Изначальное отображение инвентаря
+// Изначальное отображение инвентаря
 updateInventoryDisplay();
-
 
 
 

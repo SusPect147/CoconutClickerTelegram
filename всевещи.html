@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Монетки</title>
+<style>
+.container228 {
+            display: flex;
+            height: var(--container-height);
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            border: 5px solid transparent; 
+            background: rgb(255, 255, 255);
+            background-clip: padding-box, border-box;
+            border-image: linear-gradient(to right, #3107eb, #7a0470) 1;
+            margin-top: 100px;
+        }
+.button228 {
+            background-color: transparent;
+            border-radius: 5px;
+            height: var(--button-height);
+            cursor: pointer;
+            margin: 0 5px;
+            flex-direction: column;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            transition: brightness 0.2s;
+}
+.button228 img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            transition: transform 0.2s;
+            border-radius: 10px;
+}
+.button228:hover img {
+            transform: scale(1.1);
+}
+.button228-text {
+            margin-top: 2.5px;
+            font-size: 20px;
+            color: rgb(35, 139, 230);
+            font-family: 'Borsok', sans-serif;
+}
+.mini-buttons {
+            display: none; 
+            flex-direction: row; 
+            margin-bottom: 5px;
+}
+.mini-button {
+            background-color: #9370DB;
+            border: none; 
+            border-radius: 5px;
+            padding: 5px 10px; 
+            margin: 0 2px;
+            cursor: pointer;
+            color: white;
+            transition: filter 0.2s; 
+            height: auto; 
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, rgb(11, 206, 255), rgb(243, 11, 212));
+  transition: background 0.5s ease;
+  user-select: none;
+  overflow: hidden; 
+}
+#message-container {
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  z-index: 100;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.error-message {
+  background-color: #ff4d4d;
+  color: white;
+}
+.success-message {
+  background-color: #4CAF50;
+  color: white;
+}
+#coin {
+  font-size: 24px;
+  margin-bottom: 150px;
+  transition: color 0.5s ease;
+  margin-top: -px;
+}
+#upgradeInfo {
+  transition: color 0.5s ease;
+  margin-bottom: -460px;
+}
+img {
+  width: 150px;
+  top: 40%;
+  cursor: pointer;
+  outline: none;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+img active {
+  box-shadow: 2px 2px 5px #fc894d;
+}
+button, .clickc, .thema {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  margin: 5px; /* Уменьшен отступ между кнопками */
+  max-width: 90%;
+  box-sizing: border-box; 
+}
+.clickc {
+  margin-top: 410px;
+  margin-right: 0;
+}
+.thema {
+  margin-top: -390px;
+  margin-left: 320px;
+}
+button:hover {
+  background-color: #555;
+}
+#codeMenu {
+  position: absolute;
+  margin-left: 20px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: none;
+  height: 135px;
+  transition: background 0.5s ease;
+}
+#codeMenu::after {
+ content: "Коды:\AWORK_CODES (+10К 🥥)";
+ display: block;
+ margin-top: 0px;
+ text-align: center;
+ white-space: pre-line;
+ font-size: 18px;
+ animation: rainbow 5s linear infinite;
+}
+@keyframes rainbow {
+0% { color: red; }
+16.67% { color: orange; }
+33.33% { color: yellow; }
+50% { color: green; }
+66.67% { color: blue; }
+83.33% { color: indigo; }
+100% { color: violet; }
+0% { color: red; }
+16.67% { color: orange; }
+33.33% { color: yellow; }
+50% { color: green; }
+66.67% { color: blue; }
+83.33% { color: indigo; }
+100% { color: violet; }
+}
+#codeInput {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-width: 90%;
+}
+#codeButton, #codeSubmit {
+  padding: 10px 10px;
+  margin-top: 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px; /* Уменьшен отступ между кнопками */
+  max-width: 90%; 
+}
+
+#inventory, .shop1, .inventory1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 1;
+  display: none;
+}
+.item {
+  display: inline-block;
+  margin: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+.item img {
+  width: 50px;
+  height: 50px;
+}
+.item span {
+  display: block;
+  font-size: 12px;
+}
+.skin1 {
+  width: 50px;
+  cursor: pointer;
+  margin: 10px;
+}
+.skin2 {
+  width: 50px;
+  cursor: pointer;
+  margin: 10px;
+}
+.message-box1 {
+   margin: 10px;
+   display: none;
+}
+
+
+</style>
+</head>
+<body>
+<div id="message-container"></div>
+<div id="coin"> 🥥0</div>
+<img id="coinImage" src="image.png" />
+<button class="thema" id="themeButton">🌙</button>
+<button2 class="clickc" id="upgradeButton">Прокачать клик (+0.1 монета)</button2>
+<div id="upgradeInfo">Стоимость прокачки: 100 монет</div>
+<codes id="codeButton">Коды</codes>
+<div id="codeMenu">
+<input type="text" id="codeInput" placeholder="Введите промокод">
+<button id="codeSubmit">Применить</button>
+</div>
+<div id="errorMessage" style="color: red; font-weight: bold; margin-top: 10px;"></div>
+<div id="inventory">
+  <h2>Инвентарь</h2>
+  <div id="items"></div>
+</div>
+<button id="inventoryButton">Инвентарь предметов</button>
+<button2 class="clickc" id="upgradeButton2">Прокачать удачу</button2>
+<div id="upgradeInfo2">Стоимость прокачки: 100 монет</div>
+<button id="shopButton1">Магазин скинов</button>
+    <button id="inventoryButton1">Инвентарь скинов</button>
+
+    <div class="shop1" id="shop1">
+        <h2>Магазин</h2>
+        <img src="skin1.jpeg" class="skin1" data-price="100" alt="Skin 1">
+        <img src="skin2.jpeg" class="skin2" data-price="1000" alt="Skin 2">
+        <div class="message-box1" id="messageBox1"></div>
+        <button id="closeShopButton1">Закрыть магазин</button>
+    </div>
+
+    <div class="inventory1" id="inventory1">
+        <h2>Ваш Инвентарь</h2>
+        <div id="inventoryDisplay1"></div>
+        <button id="closeInventoryButton1">Закрыть инвентарь</button>
+    </div>
+
+<div class="container228">
+      <div class="button228" onclick="toggleMiniButtons(this)">
+          <img src="image1.jpg" alt="Подарки дня">
+          <div class="button228-text">Подарки дня</div>
+      </div>
+      <div class="button228" onclick="toggleMiniButtons(this)">
+          <img src="image2.jpg" alt="Коды">
+          <div class="button228-text">ПРОкачка</div>
+      </div>
+      <div class="button228" onclick="toggleMiniButtons(this)">
+          <img src="image3.jpg" alt="Задания">
+          <div class="button228-text">Задания</div>
+      </div>
+      <div class="button228" onclick="toggleMiniButtons(this)">
+          <img src="image4.jpg" alt="ПРОкачки">
+          <div class="button228-text">Инвентарь
+          </div>
+          <div class="mini-buttons">
+              <button class="mini-button">Предметы</button>
+              <button class="mini-button">Скины</button>
+          </div>
+      </div>
+  </div>
+<script>
+function saveCoins() {
+localStorage.setItem('coinCount', coinCount);
+localStorage.setItem('clickValue', clickValue);
+localStorage.setItem('upgradePrice', upgradePrice);    // Сохраняем цену прокачки
+localStorage.setItem('upgradePrice2', upgradePrice2); // Сохраняем цену прокачки
+localStorage.setItem('codeUsed1', codeUsed1);
+localStorage.setItem('codeUsed2', codeUsed2);
+localStorage.setItem('codeUsed3', codeUsed3);
+localStorage.setItem('codeUsed4', codeUsed4);
+localStorage.setItem('codeUsed5', codeUsed5);
+localStorage.setItem('codeUsed6', codeUsed6);
+localStorage.setItem('codeUsed7', codeUsed7);
+localStorage.setItem('skinbuying1', skinbuying1);
+localStorage.setItem('items', JSON.stringify(items));
+
+localStorage.setItem('rare', rare);
+localStorage.setItem('epic', epic);
+localStorage.setItem('mythic', mythic);
+localStorage.setItem('legendary', legendary);
+localStorage.setItem('secret', secret);
+}
+
+function loadCoins() {
+coinCount = parseFloat(localStorage.getItem('coinCount')) || 0;
+clickValue = parseFloat(localStorage.getItem('clickValue')) || 1;
+upgradePrice = parseInt(localStorage.getItem('upgradePrice')) || 100; // Загружаем цену прокачки
+upgradePrice2 = parseInt(localStorage.getItem('upgradePrice2')) || 500; // Загружаем цену второй прокачки
+codeUsed1 = localStorage.getItem('codeUsed1') === 'true' || false;
+codeUsed2 = localStorage.getItem('codeUsed2') === 'true' || false;
+codeUsed3 = localStorage.getItem('codeUsed3') === 'true' || false;
+codeUsed4 = localStorage.getItem('codeUsed4') === 'true' || false;
+codeUsed5 = localStorage.getItem('codeUsed5') === 'true' || false;
+codeUsed6 = localStorage.getItem('codeUsed6') === 'true' || false;
+codeUsed7 = localStorage.getItem('codeUsed7') === 'true' || false;
+skinbuying = localStorage.getItem('codeUsed7') === 'true' || false;
+localStorage.setItem('skinbuying', skinbuying);coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
+upgradeInfoDisplay.textContent = `Стоимость прокачки: ${upgradePrice} 🥥`;
+upgradeInfoDisplay2.textContent = `Стоимость прокачки: ${upgradePrice2} 🥥`;
+const storedItems = localStorage.getItem('items');
+return storedItems ? JSON.parse(storedItems) : [];
+
+rare = parseFloat(localStorage.getItem('rare')) || 0.01;
+epic = parseFloat(localStorage.getItem('epic')) || 0.001;
+mythic = parseFloat(localStorage.getItem('mythic')) || 0.0001;
+legendary = parseFloat(localStorage.getItem('legendary')) || 0.00001;
+secret = parseFloat(localStorage.getItem('secret')) || 0.000001;
+}
+let coinCount = 0;
+let clickValue = 1;
+let upgradePrice = 100;
+let codeUsed1 = false;
+let codeUsed2 = false;
+let codeUsed3 = false;
+let codeUsed4 = false;
+let codeUsed5 = false;
+let codeUsed6 = false;
+let codeUsed7 = false;
+let rare =      0.01;
+let epic =      0.001;
+let mythic =    0.0001;
+let legendary = 0.00001;
+let secret =    0.000001;
+let upgradePrice2 = 500;
+const coinDisplay = document.getElementById('coin');
+const coinImage = document.getElementById('coinImage');
+const themeButton = document.getElementById('themeButton');
+const upgradeButton = document.getElementById('upgradeButton');
+const upgradeButton2 = document.getElementById('upgradeButton2');
+const upgradeInfoDisplay = document.getElementById('upgradeInfo');
+const upgradeInfoDisplay2 = document.getElementById('upgradeInfo2');
+const codeButton = document.getElementById('codeButton');
+const codeMenu = document.getElementById('codeMenu');
+const codeInput = document.getElementById('codeInput');
+const codeSubmit = document.getElementById('codeSubmit');
+
+const shop1 = document.getElementById('shop1');
+        const inventory1 = document.getElementById('inventory1');
+        const messageBox1 = document.getElementById('messageBox1');
+        const inventoryDisplay1 = document.getElementById('inventoryDisplay1');
+
+
+loadCoins();
+
+coinImage.addEventListener('click', () => {
+  coinCount += clickValue;
+  coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
+  saveCoins();
+});
+
+upgradeButton.addEventListener('click', () => {
+  if (coinCount >= upgradePrice) {
+    coinCount -= upgradePrice;
+    clickValue += 0.1;
+    upgradePrice *= 1.5;
+    coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
+    upgradeInfoDisplay.textContent = `Стоимость прокачки: ${upgradePrice} 🥥`;
+    saveCoins();
+  }
+});
+
+upgradeButton2.addEventListener('click', () => {
+  if (coinCount >= upgradePrice2) {
+    coinCount -= upgradePrice2;
+    upgradePrice2 *= 2;
+    rare *= 1.2 ;
+    epic *= 1.2 ;
+    mythic *= 1.2 ;
+    legendary *= 1.2 ;
+    secret *= 1.2 ;  
+    coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
+    upgradeInfoDisplay2.textContent = `Стоимость прокачки: ${upgradePrice2} 🥥`;
+    saveCoins();
+  }
+});
+let isDarkTheme = false;
+document.getElementById('shopButton2').addEventListener('click', function() {
+            // Здесь Вы можете использовать url, на который хотите перейти
+            window.location.href = 'http://127.0.0.1:5500/PROkachka.html'; // Замените на нужный URL
+        });
+
+function toggleMiniButtons(button228) {
+        // Убираем мини-кнопки от всех кнопок
+        document.querySelectorAll('.button228.active').forEach(function(b) {
+            if (b !== button228) {
+                b.classList.remove('active');
+                b.querySelector('.mini-buttons').style.display = 'none';
+            }
+        });
+        // Переключаем мини-кнопки для выбранной кнопки
+        const miniButtons = button228.querySelector('.mini-buttons');
+        miniButtons.style.display = miniButtons.style.display === 'none' ? 'flex' : 'none';
+        button228.classList.toggle('active');
+}
+themeButton.addEventListener('click', () => {
+  if (isDarkTheme) {
+    document.body.style.background = 'linear-gradient(to bottom, rgb(11, 206, 255), rgb(243, 11, 212))';
+    coinDisplay.style.color = '#000';
+    upgradeInfo.style.color = '#000';
+    themeButton.style.backgroundColor = '#333';
+    themeButton.style.color = '#fff';
+    upgradeButton.style.backgroundColor = '#333';
+    upgradeButton.style.color = '#fff';
+    codeButton.style.backgroundColor = '#333';
+    codeButton.style.color = '#fff';
+    themeButton.textContent = '🌙';
+    inventoryButton.style.backgroundColor = '#333';
+    inventoryButton.style.сolor = '#333';
+    upgradeInfo2.style.color = '#333';
+    inventoryButton.style.backgroundColor = '#333';
+    inventoryButton.style.color = '#fff';
+    shopButton1.style.backgroundColor = '#333';
+    shopButton1.style.color = '#fff';
+    inventoryButton1.style.backgroundColor = '#333';
+    inventoryButton1.style.color = '#fff';
+    upgradeButton2.style.backgroundColor = '#333';
+    upgradeButton2.style.color = '#fff';
+  } else {
+    document.body.style.background = 'linear-gradient(to bottom, #000, #444)';
+    coinDisplay.style.color = '#fff';
+    upgradeInfo.style.color = '#fff';
+    themeButton.style.backgroundColor = '#fff';
+    themeButton.style.color = '#000';
+    upgradeButton.style.backgroundColor = '#fff';
+    upgradeButton.style.color = '#000';
+    codeButton.style.backgroundColor = '#fff';
+    codeButton.style.color = '#000';
+    themeButton.textContent = '🌟';
+    upgradeInfo2.style.color = '#fff';
+    inventoryButton.style.backgroundColor = '#fff';
+    inventoryButton.style.color = '#000';
+    shopButton1.style.backgroundColor = '#fff';
+    shopButton1.style.color = '#000';
+    inventoryButton1.style.backgroundColor = '#fff';
+    inventoryButton1.style.color = '#000';
+    upgradeButton2.style.backgroundColor = '#fff';
+    upgradeButton2.style.color = '#000';
+  }
+  isDarkTheme = !isDarkTheme;
+});
+codeButton.addEventListener('click', () => {
+  codeMenu.style.display = 'block';
+});
+
+codeMenu.addEventListener('click', (event) => {
+  if (event.target === codeMenu) {
+    codeMenu.style.display = 'none';
+  }
+});
+
+codeSubmit.addEventListener('click', () => {
+  const code = codeInput.value.trim();
+  if (code === 'ImWinner_NECHTO' && !codeUsed1) {
+    coinCount += 100000;
+    coinDisplay.textContent = `Монеток: ${coinCount.toFixed(1)}`;
+    codeUsed1 = true;
+    saveCoins();
+    codeMenu.style.display = 'none';
+    showMessage('Код успешно активирован!', 'success-message');
+  } else if (code === '1JFI493AOa' && !codeUsed2) {
+    coinCount += 100000;
+    coinDisplay.textContent = `Монеток: ${coinCount.toFixed(1)}`;
+    codeUsed2 = true;
+    saveCoins();
+    codeMenu.style.display = 'none';
+    showMessage('Код успешно активирован!', 'success-message');
+  } else if (code === 'Hammer147_secret_code') {
+    coinCount += 1000000000000;
+    coinDisplay.textContent = `Монеток: ${coinCount.toFixed(1)}`;
+    saveCoins();
+    codeMenu.style.display = 'none';
+    showMessage('Код успешно активирован!', 'success-message');
+  } else {
+    showMessage('Неверный промокод или он уже был использован!', 'error-message');
+  }
+});
+
+function showMessage(text, className) {
+  const messageContainer = document.getElementById('message-container');
+  messageContainer.textContent = text;
+  messageContainer.className = className;
+  messageContainer.style.opacity = '1';
+
+  setTimeout(() => {
+    messageContainer.style.opacity = '0';
+  }, 5000);
+}
+
+const inventoryButton = document.getElementById('inventoryButton');
+    const inventory = document.getElementById('inventory');
+    const itemsContainer = document.getElementById('items');
+
+    let items = loadItems() || [];
+
+    coinImage.addEventListener('click', () => {
+      const randomNumber = Math.random();
+      let item;
+
+      if (randomNumber < secret) {
+        item = { type: 'особый', count: 1, image: 'особый.png' };
+      } else if (randomNumber < secret + legendary) {
+        item = { type: 'легендарный', count: 1, image: 'легендарный.png' };
+      } else if (randomNumber < secret + legendary + mythic) {
+        item = { type: 'мифический', count: 1, image: 'мифический.png' };
+      } else if (randomNumber < secret + legendary + mythic + epic) {
+        item = { type: 'эпический', count: 1, image: 'эпический.png' };
+      } else if (randomNumber < secret + legendary + mythic + epic + rare) {
+        item = { type: 'редкий', count: 1, image: 'редкий.png' };
+      } else {
+        return; // Не выпал предмет
+      }
+
+      const existingItem = items.find(i => i.type === item.type);
+      if (existingItem) {
+        existingItem.count++;
+      } else {
+        items.push(item);
+      }
+
+      updateInventory();
+      saveItems(items);
+    });
+
+    inventoryButton.addEventListener('click', () => {
+      inventory.style.display = inventory.style.display === 'none' ? 'block' : 'none';
+    });
+
+    function updateInventory() {
+      itemsContainer.innerHTML = '';
+
+      items.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.classList.add('item');
+
+        const itemImage = document.createElement('img');
+        itemImage.src = item.image;
+        itemElement.appendChild(itemImage);
+
+        const itemCount = document.createElement('span');
+        itemCount.textContent = `x${item.count}`;
+        itemElement.appendChild(itemCount);
+
+        itemsContainer.appendChild(itemElement);
+      });
+    }
+
+    function saveItems(items) {
+      localStorage.setItem('items', JSON.stringify(items));
+    }
+
+    function loadItems() {
+      const storedItems = localStorage.getItem('items');
+      return storedItems ? JSON.parse(storedItems) : [];
+    }
+
+document.getElementById('shopButton1').addEventListener('click', () => {
+            shop1.style.display = 'block';
+        });
+
+document.getElementById('inventoryButton1').addEventListener('click', () => {
+            inventory1.style.display = 'block';
+            updateInventoryDisplay1();
+        });
+
+document.getElementById('closeShopButton1').addEventListener('click', () => {
+            shop1.style.display = 'none';
+        });
+
+document.getElementById('closeInventoryButton1').addEventListener('click', () => {
+            inventory1.style.display = 'none';
+        });
+
+const skins = [];
+
+document.querySelectorAll('.skin1').forEach(skin1 => {
+            skin1.addEventListener('click', () => {
+                if (coinCount >= 147) {
+                    messageBox1.style.display = 'block';
+                    messageBox1.textContent = "Хотите купить ЭКСКЛЮЗИВНЫЙ скин BETA за 100🥥?";
+                    const yesButton = document.createElement('button');
+                    yesButton.textContent = "Да";
+                    yesButton.addEventListener('click', () => {
+                      coinCount -= 100;
+                        skins.push(skin1.src);
+                        coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
+                        messageBox1.style.display = 'none';
+                    });
+                    const noButton = document.createElement('button');
+                    noButton.textContent = "Нет";
+                    noButton.addEventListener('click', () => {
+                        messageBox1.style.display = 'none';
+                    });
+                    messageBox1.appendChild(yesButton);
+                    messageBox1.appendChild(noButton);
+                } else {
+                    alert("Недостаточно 🥥 для покупки.");
+                }
+            });
+        });
+        document.querySelectorAll('.skin2').forEach(skin2 => {
+            skin2.addEventListener('click', () => {
+                if (coinCount >= 10000) {
+                    messageBox1.style.display = 'block';
+                    messageBox1.textContent = "Хотите купить скин Бейби Кокос за 10000🥥?";
+                    const yesButton = document.createElement('button');
+                    yesButton.textContent = "Да";
+                    yesButton.addEventListener('click', () => {
+                      coinCount -= 100;
+                        skins.push(skin2.src);
+                        coinDisplay.textContent = `🥥${coinCount.toFixed(1)}`;
+                        messageBox1.style.display = 'none';
+                    });
+                    const noButton = document.createElement('button');
+                    noButton.textContent = "Нет";
+                    noButton.addEventListener('click', () => {
+                        messageBox1.style.display = 'none';
+                    });
+                    messageBox1.appendChild(yesButton);
+                    messageBox1.appendChild(noButton);
+                } else {
+                    alert("Недостаточно 🥥 для покупки.");
+                }
+            });
+        });
+        function updateInventoryDisplay1() {
+            inventoryDisplay1.innerHTML = '';
+            skins.forEach(skinSrc => {
+                const img = document.createElement('img');
+                img.src = skinSrc;
+                img.className = 'skin1';
+                img.className = 'skin2';
+                img.style.width = '50px';
+                img.addEventListener('click', () => {
+                    document.getElementById('coinImage').src = skinSrc;
+                });
+                inventoryDisplay1.appendChild(img);
+            });
+        }
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+<div class="container228">
+  <div class="button228" onclick="toggleMiniButtons(this)">
+    <img src="cocos.png" alt="Меню" draggable="false">
+    <div class="button228-text">Кокос</div>
+  </div>
+  <div class="button228" onclick="toggleMiniButtons(this)">
+    <img src="podarok.png" alt="Подарки дня" id="dailyGift" onclick="getDailyGift()" draggable="false">
+    <div class="button228-text">Подарки</div>
+  </div>
+  <div class="button228" onclick="toggleMiniButtons(this)">
+    <img src="magaz.png" alt="ПРОкачка" draggable="false">
+    <div class="button228-text">Магазин</div>
+    <div class="mini-buttons">
+      <button class="mini-button" id="prokachka">ПРОкачка</button>
+      <button class="mini-button" id="shopButton1">Скины</button>
+    </div>
+  </div>
+  <div class="button228" onclick="toggleMiniButtons(this)">
+    <img src="kvest.png" alt="Задания" id="taskButton" draggable="false">
+    <div class="button228-text">Квесты</div>
+  </div>
+  <div class="button228" onclick="toggleMiniButtons(this)">
+    <img src="inven.png" alt="Инвентарь" draggable="false">
+    <div class="button228-text">Рюкзак</div>
+    <div class="mini-buttons">
+      <button class="mini-button" onclick="toggleInventory()">Предметы</button>
+      <button class="mini-button" id="inventoryButton1">Скины</button>
+    </div>
+  </div>
