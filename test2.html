@@ -215,12 +215,61 @@ body {
             }
         }
 
-.bet-selection {
-    margin-top: calc(80% - 20px); /* Сдвигаем контейнер на 20px выше */
-    gap: 10px;
-    justify-content: center;
-    z-index: 100;
-}
+        #spin-button {
+            position: absolute;
+            bottom: 15%;
+            left: 20px;
+            right: 20px;
+            padding: 15px;
+            font-size: 18px;
+            color: #333;
+            background: #ffcc00;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        #spin-button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        #spin-button:hover:not(:disabled) {
+            background: #e6b800;
+        }
+
+        /* Новый стиль для кнопок выбора ставки */
+        .bet-selection {
+            margin-top: 80%;
+            gap: 10px;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        .bet-button {
+            padding: 10px 15px;
+            font-size: 14px;
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s;
+            z-index: 100;
+        }
+
+        .bet-button:hover {
+            background-color: #e6b800;
+            z-index: 100;
+        }
+
+        .bet-button.selected {
+            background-color: #b38600; /* Темно-желтый цвет при выборе */
+            z-index: 100;
+        }
 
 
 
@@ -371,12 +420,12 @@ body {
 </div>
 
 <!-- Контейнер для выбора ставки рядом с кнопкой Spin -->
-<button id="spin-button">Spin</button>
+<button id="spin-button" style="margin-bottom: 10px;">Spin</button>
 <div class="bet-selection">
-    <button class="bet-button" onclick="setBet(100)">100 tickets</button>
-    <button class="bet-button" onclick="setBet(1000)">1k tickets</button>
-    <button class="bet-button" onclick="setBet(25000)">25k tickets</button>
-    <button class="bet-button" onclick="setBet(50000)">50k tickets</button>
+    <button class="bet-button" onclick="setBet(100)" style="margin-bottom: 10px;">100 tickets</button>
+    <button class="bet-button" onclick="setBet(1000)" style="margin-bottom: 10px;">1k tickets</button>
+    <button class="bet-button" onclick="setBet(25000)" style="margin-bottom: 10px;">25k tickets</button>
+    <button class="bet-button" onclick="setBet(50000)" style="margin-bottom: 10px;">50k tickets</button>
 </div>
 
 
