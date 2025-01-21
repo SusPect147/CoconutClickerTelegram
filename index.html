@@ -639,9 +639,9 @@ body {
   <div id="level-bar">
     <div id="level-progress"></div>
   </div>
-  <div id="level" class="CLASS">Начинающий кокосомен</div>
+  <div id="level" class="CLASS">Started coconutMAN</div>
     <div id="inventory">
-      <h2>Инвентарь</h2>
+      <h2>Inventory</h2>
     </div>
     <div class="container228">
       <div class="button228" onclick="toggleMiniButtons(this)">
@@ -673,27 +673,26 @@ body {
 
   <div class="popup-menu" id="popupMenu">
       <button onclick="redirectToSite('PROkachka.html')">Upgrade Your Coconut!</button>
-      <button onclick="redirectToSite('test2.html')">LET'SF SPIN FOR TICKETS!</button>
+      <button onclick="redirectToSite('test2.html')">LET'Sf SPIN FOR TICKETS!</button>
       <button onclick="toggleInventory()">Inventory</button>
       <button onclick="redirectToSite('')">Leader Board(coming soon)</button>
       <button onclick="redirectToSite('')">Clans(coming soon)</button>
       <button onclick="redirectToSite('')">Friends(coming soon)</button>
-      <button onclick="redirectToSite('https://www.youtube.com/watch?v=dQw4w9WgXcQ')">Not a rickroll</button>
   </div>
 
 
   <div id="taskContainer">
-    <h2>Задания</h2>
-    <p>Подпишись на Телеграм</p>
-    <button class="taskButton1" data-url="https://t.me/CoconutClicker" data-id="1">Тык!</button>
-    <p>Подпишись на Ютуб</p>
-    <button class="taskButton2" data-url="https://www.youtube.com/@CocounatCoin" data-id="2">Тык!</button>
-    <p>Подпишись на X</p>
-    <button class="taskButton3" data-url="https://x.com/Cocounat_?s=09" data-id="3">Тык!</button>
+    <h2>Quests</h2>
+    <p>Telegram channel (+1000 coconuts)</p>
+    <button class="taskButton1" data-url="https://t.me/CoconutClicker" data-id="1">Tap</button>
+    <p>Youtube channel (+1000 coconuts)</p>
+    <button class="taskButton2" data-url="https://www.youtube.com/@CocounatCoin" data-id="2">Tap</button>
+    <p>X channel (+1000 coconuts)</p>
+    <button class="taskButton3" data-url="https://x.com/Cocounat_?s=09" data-id="3">Tap</button>
   </div>
 
   <div class="shop1" id="shop1">
-    <h2 class="TEXT">Магазин</h2>
+    <h2 class="TEXT">Shop</h2>
     <img src="skin1.png" class="skin1" data-price="10000" alt="Skin 1" draggable="false">
     <img src="skin2.png" class="skin2" data-price="10000" alt="Skin 2" draggable="false">
     <img src="skin3.png" class="skin3" data-price="1000000" alt="Skin 3" draggable="false">
@@ -720,13 +719,13 @@ body {
     <img src="OFFICIALcoconutLOGO1.png" class="skin24" data-price="0" alt="Skin 25" draggable="false">
     <img src="ticket.png" class="skin24" data-price="123456789123456789123456789" alt="Skin 26" draggable="false">
     <div class="message-box1" id="messageBox1"></div>
-    <button id="closeShopButton1" class="TEXT">Закрыть магазин</button>
+    <button id="closeShopButton1" class="TEXT">Close</button>
   </div>
 
   <div class="inventory1" id="inventory1">
-    <h2 class="TEXT">Ваш Инвентарь</h2>
+    <h2 class="TEXT">Inventory</h2>
     <div id="inventoryDisplay1" class="TEXT"></div>
-    <button id="closeInventoryButton1" class="TEXT">Закрыть инвентарь</button>
+    <button id="closeInventoryButton1" class="TEXT">Close</button>
   </div>
   <script>
     function saveCoins() {
@@ -1072,7 +1071,6 @@ if (skinSrc.includes('skin25')) {
     luckLevel *= 1000; // Увеличиваем удачу
     console.log('Luck level set to:', luckLevel);
 } else {
-    luckLevel = luckLevel; // Сбрасываем удачу до стандартного уровня
     console.log('Luck level reset to:', luckLevel);
 }
 
@@ -1086,22 +1084,22 @@ if (skinSrc.includes('skin25')) {
 function handleSkinPurchase(skinSrc, cost) {
     if (skins.includes(skinSrc)) {
         messageBox1.style.display = 'block';
-        messageBox1.textContent = "У Вас уже есть этот скин в инвентаре.";
+        messageBox1.textContent = "U have this skin...";
         return; // Прекращаем выполнение, если скин уже приобретён
     }
 
     // Если монет недостаточно, просто показываем стоимость
     if (coinCount < cost) {
         messageBox1.style.display = 'block';
-        messageBox1.textContent = `Скин стоит ${cost}🥥 монет. У вас недостаточно монет для покупки.`;
+        messageBox1.textContent = `U need more coconuts!!`;
         return; // Прекращаем выполнение, чтобы не показывать кнопки
     }
 
     // Если монет достаточно, показываем окно подтверждения
     messageBox1.style.display = 'block';
-    messageBox1.textContent = `Хотите купить скин за ${cost}🥥?`;
+    messageBox1.textContent = `Do u want buy skin for ${cost}🥥?`;
     const yesButton = document.createElement('button');
-    yesButton.textContent = "Да";
+    yesButton.textContent = "Yes!";
     yesButton.addEventListener('click', () => {
         coinCount -= cost;
         skins.push(skinSrc);
@@ -1112,7 +1110,7 @@ function handleSkinPurchase(skinSrc, cost) {
     });
 
     const noButton = document.createElement('button');
-    noButton.textContent = "Нет";
+    noButton.textContent = "Nope";
     noButton.addEventListener('click', () => {
         messageBox1.style.display = 'none';
     });
