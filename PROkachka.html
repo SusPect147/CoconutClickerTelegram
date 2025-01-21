@@ -360,33 +360,25 @@ button:hover {
 
 <!-- Контейнер для выбора ставки рядом с кнопкой Spin -->
 
-<lucky class="clickc" id="upgradeButton">Прокачать клик (+0.1 монета)</lucky>
-<div id="upgradeInfo">Стоимость прокачки: 100 монет</div>
+<lucky class="clickc" id="upgradeButton">Upgrade Click (+0.1 монета)</lucky>
+<div id="upgradeInfo">Price: 100 coconuts</div>
 
-<button class="clickc" id="upgradeButton2">Прокачать удачу (x2 удачи)</button>
-<div id="upgradeInfo2">Стоимость прокачки: 500 монет</div>
-
-<button class="clickc" id="upgradeButton3">Сделать прокачку дешевле</button>
-<div id="upgradeInfo3">Стоимость прокачки: 1000 монет</div>
-
-
-
-
-
+<button class="clickc" id="upgradeButton2">Upgrade Luck (x2 удачи)</button>
+<div id="upgradeInfo2">Price: 500 coconuts</div>
 
 
   <div class="shop1" id="shop1">
-    <h2>Магазин</h2>
+    <h2>Shop</h2>
     <img src="skin1.jpeg" class="skin1" data-price="100" alt="Skin 1">
     <img src="skin2.jpeg" class="skin2" data-price="1000" alt="Skin 2">
     <div class="message-box1" id="messageBox1"></div>
-    <button id="closeShopButton1">Закрыть магазин</button>
+    <button id="closeShopButton1">Close</button>
 </div>
 
 <div class="inventory1" id="inventory1">
-    <h2>Ваш Инвентарь</h2>
+    <h2>Inventory</h2>
     <div id="inventoryDisplay1"></div>
-    <button id="closeInventoryButton1">Закрыть инвентарь</button>
+    <button id="closeInventoryButton1">Close</button>
 </div>
 <script>
 function saveCoins() {
@@ -532,7 +524,7 @@ upgradeButton.addEventListener('click', () => {
     clickValue *= 1.1;
     upgradePrice *= PRICEPRO;
     coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
-    upgradeInfoDisplay.textContent = `Стоимость прокачки: ${upgradePrice.toFixed(0)} 🥥`;
+    upgradeInfoDisplay.textContent = `Price: ${upgradePrice.toFixed(0)} 🥥`;
     saveCoins();
   }
 });
@@ -544,7 +536,7 @@ upgradeButton2.addEventListener('click', () => {
     upgradePrice2 *= PRICEPRO;
 
     coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
-    upgradeInfoDisplay2.textContent = `Стоимость прокачки: ${upgradePrice2.toFixed(0)} 🥥`;
+    upgradeInfoDisplay2.textContent = `Price: ${upgradePrice2.toFixed(0)} 🥥`;
     saveCoins();
   }
 });
@@ -556,7 +548,7 @@ upgradeButton3.addEventListener('click', () => {
       PRICEPRO -= 0.05;
       upgradePrice3 *= PRICEPRO;
       coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
-      upgradeInfoDisplay3.textContent = `Стоимость прокачки: ${upgradePrice3.toFixed(0)} 🥥`;
+      upgradeInfoDisplay3.textContent = `Price: ${upgradePrice3.toFixed(0)} 🥥`;
       c -= 1;
       saveCoins();
       }
@@ -582,7 +574,7 @@ farmUpgradeButton.addEventListener('click', () => {
 
     // Обновляем UI
     coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
-    farmUpgradeInfoDisplay.textContent = `Стоимость прокачки автофермы: ${farmUpgradePrice.toFixed(0)} 🥥`;
+    farmUpgradeInfoDisplay.textContent = `Price: ${farmUpgradePrice.toFixed(0)} 🥥`;
 
     // Сохраняем данные
     saveCoins();
