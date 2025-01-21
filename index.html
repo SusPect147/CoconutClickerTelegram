@@ -989,17 +989,17 @@ function initializeQuestButtons() {
       const isButtonDisabled = localStorage.getItem(`button_${buttonId}`) === 'true';
       if (isButtonDisabled) {
         button.disabled = true;
-        button.textContent = 'Награда взята';
+        button.textContent = 'You made it';
       }
 
       button.addEventListener('click', function() {
         const url = this.getAttribute('data-url');
-        this.textContent = 'В процессе получения кокосов';
+        this.textContent = 'Wait///';
         window.open(url, '_blank');
         this.disabled = true;
         localStorage.setItem(`button_${buttonId}`, 'true');
         setTimeout(() => {
-          this.textContent = 'Награда взята';
+          this.textContent = 'You made it';
           coinCount += 1000.0;
           coinDisplay.textContent = `🥥${coinCount.toFixed(0)}`;
           saveCoins();
@@ -1091,7 +1091,7 @@ function handleSkinPurchase(skinSrc, cost) {
     // Если монет недостаточно, просто показываем стоимость
     if (coinCount < cost) {
         messageBox1.style.display = 'block';
-        messageBox1.textContent = `U need more coconuts!!`;
+        messageBox1.textContent = `U need more coconuts!! Skin prise: ${cost}🥥`;
         return; // Прекращаем выполнение, чтобы не показывать кнопки
     }
 
